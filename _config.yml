@@ -99,7 +99,7 @@ theme: jpmessaging
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: git@github.com:jpmessaging/blog.git
+  repo: https://github.com/jpmessaging/blog.git
   branch: gh-pages # "gh-pages" is the  default for git type
 
 github:
