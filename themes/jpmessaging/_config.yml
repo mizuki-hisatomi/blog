@@ -30,7 +30,17 @@ show_count: false
 # Miscellaneous
 google_analytics:
 gauges_analytics:
-favicon: /favicon.png
+
+favicon:
+- ico: icons/favicon.ico
+- small: icons/favicon-16x16.png
+- medium: icons/favicon-32x32.png
+- apple_touch_icon: icons/apple-touch-icon.png
+- webmanifest: icons/site.webmanifest
+- safari_pinned_tab: icons/safari-pinned-tab.svg
+- android_manifest: icons/manifest.json
+- ms_browserconfig: icons/browserconfig.xml
+
 twitter:
 google_plus:
 fb_admins:

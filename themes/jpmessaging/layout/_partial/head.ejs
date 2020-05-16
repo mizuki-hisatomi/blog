@@ -26,8 +26,16 @@
   <% if (theme.rss){ %>
     <link rel="alternate" href="<%= url_for(theme.rss) %>" title="<%= config.title %>" type="application/atom+xml">
   <% } %>
-  <% if (theme.favicon){ %>
-    <link rel="icon" href="<%- theme.favicon %>">
+  <% if (theme.favicon) { %>
+    <link rel="apple-touch-icon" sizes="180x180" href="<%- theme.favicon.apple_touch_icon %>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%- theme.favicon.medium %>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%- theme.favicon.small %>">
+    <link rel="manifest" href="<%- theme.favicon.webmanifest %>">
+    <link rel="mask-icon" href="<%- theme.favicon.safari_pinned_tab %>" color="#5bbad5">
+    <link rel="shortcut icon" href="<%- theme.favicon.ico %>">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="<%- theme.favicon.ms_browserconfig %>">
+    <meta name="theme-color" content="#ffffff">
   <% } %>
   <% if (config.highlight.enable){ %>
     <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
