@@ -28,6 +28,20 @@
 .article-header
   padding: article-padding article-padding 0
 
+.article-header-single
+  padding: article-padding
+
+.article-share
+  color: #999
+  border-bottom: 1px solid #ddd
+  height: 20px
+  margin: 0 article-padding 0
+  a
+    color: color-grey
+    text-decoration: none
+  a&:hover
+      color: color-default
+
 .article-title
   text-decoration: none
   font-size: 2em
@@ -171,6 +185,24 @@
   &:before
     content: "\f064"
     font-family: font-icon
+    padding-right: 6px
+
+.article-github-issue-link
+  cursor: pointer
+  float: right
+  margin-left: 20px
+  &:before
+    content: "\f09b"
+    font-family: FontAwesome
+    padding-right: 6px
+
+.article-github-edit-link
+  cursor: pointer
+  float: right
+  margin-left: 20px
+  &:before
+    content: "\f044"
+    font-family: FontAwesome
     padding-right: 6px
 
 #article-nav

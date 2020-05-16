@@ -3,8 +3,8 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: jpmessaging blog  # 
-subtitle: 'This is the subtitle'
+title: Japan Exchange & Outlook Support Blog
+subtitle: '日本マイクロソフト Exchange & Outlook サポート チームのブログです'
 description: 'this is the description'
 keywords:
 author: jpmessaging
@@ -93,7 +93,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: jpmessaging
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -101,3 +101,7 @@ deploy:
   type: git
   repo: git@github.com:jpmessaging/blog.git
   branch: gh-pages # "gh-pages" is the  default for git type
+
+github:
+  url: https://github.com/jpmessaging/blog/
+  posts_dir: articles
