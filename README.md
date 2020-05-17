@@ -1,3 +1,3 @@
 # jpmessage blog site
 
-Go to the [blog site](https://jpmessage.github.io/blog).
+Go to the [blog site](https://jpmessaging.github.io/blog/).
