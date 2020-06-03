@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Exchange 2013 のメール フローについて
+ | Japan Exchange &amp; Outlook Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Exchange 2013 サーバー内でトランスポートに関わるサービス プロセスは MSExchangeSubmission、EdgeTransport、MSExchangeDelivery、MSExchangeFrontEndTransport となります。  MSExchangeSubmission (Microsoft Exchange メールボックス トランスポート発信 サービス) Edg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Exchange 2013 のメール フローについて
+">
+<meta property="og:url" content="https://jpmessaging.github.io/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/index.html">
+<meta property="og:site_name" content="Japan Exchange &amp; Outlook Support Blog">
+<meta property="og:description" content="Exchange 2013 サーバー内でトランスポートに関わるサービス プロセスは MSExchangeSubmission、EdgeTransport、MSExchangeDelivery、MSExchangeFrontEndTransport となります。  MSExchangeSubmission (Microsoft Exchange メールボックス トランスポート発信 サービス) Edg">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/080801.jpg">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/080802.png">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/080803.jpg">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/080804.jpg">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/080805.jpg">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/080806.jpg">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/080807.jpg">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/080808.jpg">
+<meta property="article:published_time" content="2016-08-07T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-03T04:18:56.149Z">
+<meta property="article:author" content="jpmessaging">
+<meta property="article:tag" content="Exchange">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmessaging.github.io/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/080801.jpg">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Japan Exchange &amp; Outlook Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Japan Exchange &amp; Outlook Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">日本マイクロソフト Exchange &amp; Outlook サポート チームのブログです</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmessaging.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Exchange 2013 のメール フローについて" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="article-date">
+  <time datetime="2016-08-07T15:00:00.000Z" itemprop="datePublished">2016-08-08</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Exchange 2013 のメール フローについて
+
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="article-date-single">    
+    
+    <time datetime="2016-08-07T15:00:00.000Z" itemprop="dateUpdated">2016-08-08</time>
+    
+</a>              
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Exchange 2013 サーバー内でトランスポートに関わるサービス プロセスは MSExchangeSubmission、EdgeTransport、MSExchangeDelivery、MSExchangeFrontEndTransport となります。</p>
+<ul>
+<li>MSExchangeSubmission (Microsoft Exchange メールボックス トランスポート発信 サービス)</li>
+<li>EdgeTransport (Microsoft Exchange Transport サービスのワーカー プロセス)</li>
+<li>MSExchangeDelivery (Microsoft Exchange メールボックス トランスポート配信 サービス)</li>
+<li>MSExchangeFrontEndTransport (Microsoft Exchange フロントエンド トランスポート サービス)</li>
+</ul>
+<p>この中で、メッセージ データを保持できるキューを持っているのは、EdgeTransport のみです。つまり、他のサービスはあくまで一時的に通るにすぎず、EdgeTransport 以外のサービスで「メッセージが留まる」ということはありません。</p>
+<p>ここでは、各サービス間でのメッセージのフローについて紹介いたします。</p>
+<p>まずサーバー 1 台環境での既定のメール フローを確認は以下のようになります。<br>以下は組織内から、組織内または外部へのメッセージの配信経路となります。<br>※ 送信コネクタの “FrontendProxyEnabled” は False のパターンです (既定)。</p>
+<p><img src="080801.jpg" alt=""></p>
+<p>この時受信したメッセージの Received ヘッダーは以下のようになります。<br>Received ヘッダーを下から順番に確認すると、1 番下のヘッダーは MSExchangeSubmission が Store からメッセージを RPC (“<span style="color: red">with mapi</span>“) で受け取ったことを示します (このヘッダーは MSExchangeSubmission が付与)。次の下から 2 番目のヘッダーは、EdgeTransport が MSExchangeSubmission から SMTP で受信したことを示します (EdgeTransport が付与)。そして最後に 1 番上のヘッダーは、MSExchangeDelivery が EdgeTransport から受信し (“<span style="color: blue">via Mailbox Transport</span>“)、Store へ配信されたことを示します (MSExchangeDelivery が付与)。</p>
+<blockquote>
+<p>Received: from E2013-1-E.e.local (192.168.1.52) by E2013-1-E.e.local (192.168.1.52) with Microsoft SMTP Server (TLS) id 15.0.1210.3 <span style="color: blue">via Mailbox Transport</span>; Sat, 30 Jul 2016 03:16:52 +0900<br>Received: from E2013-1-E.e.local (192.168.1.52) by E2013-1-E.e.local (192.168.1.52) with Microsoft SMTP Server (TLS) id 15.0.1210.3; Sat, 30 Jul 2016 03:16:52 +0900<br>Received: from E2013-1-E.e.local ([192.168.1.52]) by E2013-1-E.e.local ([192.168.1.52]) <span style="color: red">with mapi</span> id 15.00.1178.000; Sat, 30 Jul 2016 03:16:52 +0900</p>
+</blockquote>
+<p>以下は送信コネクタで “FrontendProxyEnabled” を True に設定している場合です。<br>この場合、EdgeTransport から FrontendTransport (ポート 717) を介して外部へ配信されます</p>
+<p><img src="080802.png" alt=""></p>
+<p>この時の Received ヘッダーは以下のようになります。<br>2 番目のヘッダーは EdgeTransport が MSExchangeSubmission から受信したことを示します。1 番上のヘッダーは、外部のサーバー POP-SMTP がクライアント アクセス サーバー (ここでは “E2013-1-B”) からメッセージを受信したことを示します。このようにクライアント アクセス サーバーの FrontendTransport を介して外部へ送信される場合には追加の Received ヘッダーは付与されません。</p>
+<blockquote>
+<p>Received: from E2013-1-B.b.local ([192.168.1.31]) by POP-SMTP over TLS secured channel with Microsoft SMTPSVC(6.0.3790.3959); Sat, 30 Jul 2016 07:52:53 +0900<br>Received: from E2013-2-B.b.local (192.168.1.32) by E2013-2-B.b.local (192.168.1.32) with Microsoft SMTP Server (TLS) id 15.0.1076.9; Sat, 30 Jul 2016 07:52:09 +0900<br>Received: from E2013-2-B.b.local ([192.168.1.32]) by E2013-2-B.b.local ([192.168.1.32]) with mapi id 15.00.1076.000; Sat, 30 Jul 2016 07:51:59 +0900</p>
+</blockquote>
+<p>次は外部からの匿名での受信時の経路となります。<br>※ 以下では外部サーバーからの受信をポート 25 で受信していますが、これは構成/クライアントに依存します。</p>
+<p><img src="080803.jpg" alt=""></p>
+<p>この時の Received ヘッダーは以下のようになります。<br>下から順番に確認すると、1 番下のヘッダーは外部のサーバー (“POP-SMTP”) からのメッセージを FrontendTranport を介して (“<span style="color: green">via Frontend Transport</span>“) 受け取ったことを示します (FrontendTranport が付与)。次のヘッダーは、EdgeTransport での受信を示し (EdgeTransport が付与)、最後の 1 番上のヘッダーは、MSExchangeDelivery への配信を示します (MSExchangeDelivery が付与)。</p>
+<blockquote>
+<p>Received: from E2013-1-E.e.local (192.168.1.52) by E2013-1-E.e.local (192.168.1.52) with Microsoft SMTP Server (TLS) id 15.0.1210.3 via Mailbox Transport; Sat, 30 Jul 2016 06:53:17 +0900<br>Received: from E2013-1-E.e.local (192.168.1.52) by E2013-1-E.e.local (192.168.1.52) with Microsoft SMTP Server (TLS) id 15.0.1210.3; Sat, 30 Jul 2016 06:53:17 +0900<br>Received: from POP-SMTP (192.168.1.91) by E2013-1-E.e.local (192.168.1.52) with Microsoft SMTP Server id 15.0.1210.3 <span style="color: green">via Frontend Transport</span>; Sat, 30 Jul 2016 06:53:16 +0900</p>
+</blockquote>
+<p>次は認証されたクライアントからの受信についてです。<br>※ ここではクライアントからの認証された接続を受けるポートは既定の 587 ですが、これは受信コネクタとクライアント側の設定で変更可能です (FrontendTranport のポート 25 で受けたとしても認証されていれば、その後のフローは以下と同様となります)。</p>
+<p><img src="080804.jpg" alt=""></p>
+<p>この時の Received ヘッダーは以下のようになります。<br>下のヘッダーはクライアント (OL20102) からのメッセージを EdgeTransport が受信したことを、上のヘッダーは MSExchangeDelivery が EdgeTransport からのメッセージを受信したことをそれぞれ示しています。<br>この場合、FrontendTranport による Received ヘッダーは付与されません。</p>
+<blockquote>
+<p>Received: from E2013-1-E.e.local (192.168.1.52) by E2013-1-E.e.local (192.168.1.52) with Microsoft SMTP Server (TLS) id 15.0.1210.3 via Mailbox Transport; Sat, 30 Jul 2016 08:16:14 +0900<br>Received: from OL20102 (192.168.1.106) by E2013-1-E.e.local (192.168.1.52) with Microsoft SMTP Server (TLS) id 15.0.1210.3; Sat, 30 Jul 2016 08:16:14 +0900</p>
+</blockquote>
+<p>次に複数のサーバーが展開されている場合についてです。</p>
+<p>基本のフローは同じですが、MSExchangeSubmission からの送信先は必ずしも自身の EdgeTransport とは限らず、可用性のために同じ AD サイト内のいずれかのサーバーのEdgeTransport へ送信されます。既定ではラウンドロビンで選択されますが、何らかの問題で選択した EdgeTransport へ配信できない場合、他のサーバーへ自動的へ送信が試みられます。従って、例えば自身の EdgeTransportが利用不可の状態においても他に利用可能なサーバーが存在している場合にはメッセージは正常に配信されます。</p>
+<p><img src="080805.jpg" alt=""></p>
+<p>上記で、別のサーバーの EdgeTransport へ配信された場合の Received ヘッダーは以下です (上記図の、1 -&gt; 2’ -&gt; 3’ -&gt; 4 に該当します)。<br>1 番下のヘッダーは MSExchangeSubmission がメッセージを RPC で受信したことを示します。2 番目のヘッダーは、別のサーバー (“E2013-2-E”) の EdgeTransport が “E2013-1-E” の MSExchangeSubmission からのメッセージを受信したことを示します。そして一番上のヘッダーは “E2013-1-E” の MSExchangeDelivery が “E2013-2-E” の EdgeTransport からメッセージを受信したことを示しています。</p>
+<blockquote>
+<p>Received: from E2013-2-E.e.local (192.168.1.53) by E2013-1-E.e.local (192.168.1.52) with Microsoft SMTP Server (TLS) id 15.0.1210.3 via Mailbox Transport; Sat, 30 Jul 2016 03:16:48 +0900<br>Received: from E2013-1-E.e.local (192.168.1.52) by E2013-2-E.e.local (192.168.1.53) with Microsoft SMTP Server (TLS) id 15.0.1210.3; Fri, 29 Jul 2016 11:16:47 -0700<br>Received: from E2013-1-E.e.local ([192.168.1.52]) by E2013-1-E.e.local ([192.168.1.52]) with mapi id 15.00.1178.000; Sat, 30 Jul 2016 03:16:47 +0900</p>
+</blockquote>
+<p>外部への配信についても同様です。<br>以下では左側のサーバーのみが送信コネクタの “SourceTransportServers” に含まれていると仮定すると、配信経路は以下のように 2 通りのいずれかとなります。<br>※ “SourceTransportServers” は、その送信コネクタを利用できるメールボックス サーバーを指定するパラメータです。</p>
+<p><img src="080806.jpg" alt=""></p>
+<p>上記の 1 -&gt; 2’ -&gt; 3’ -&gt; 4’  のパターンの場合の Received ヘッダーは以下のようになります。<br>MSExchangeSubmission が別のサーバーの EdgeTransport へ送信して、そこから戻ってくる形で再度 EdgeTransport 間でメッセージが転送されていることが確認できます。</p>
+<blockquote>
+<p>Received: from E2013-1-E.e.local ([192.168.1.52]) by POP-SMTP over TLS secured channel with Microsoft SMTPSVC(6.0.3790.3959); Sat, 30 Jul 2016 09:03:37 +0900<br>Received: from E2013-2-E.e.local (192.168.1.53) by E2013-1-E.e.local (192.168.1.52) with Microsoft SMTP Server (TLS) id 15.0.1210.3; Sat, 30 Jul 2016 09:03:37 +0900<br>Received: from E2013-1-E.e.local (192.168.1.52) by E2013-2-E.e.local (192.168.1.53) with Microsoft SMTP Server (TLS) id 15.0.1210.3; Fri, 29 Jul 2016 17:03:34 -0700<br>Received: from E2013-1-E.e.local ([192.168.1.52]) by E2013-1-E.e.local ([192.168.1.52]) with mapi id 15.00.1178.000; Sat, 30 Jul 2016 09:03:14 +0900</p>
+</blockquote>
+<p>もちろん、右側のサーバーも “SourceTransportServers” に含まれていれば、以下のようにこのサーバーからも直接外部へ配信されます。</p>
+<p><img src="080807.jpg" alt=""></p>
+<p>以下は外部からの配信です。<br>左側のサーバーの FrontendTranport で通信を受けた場合、そのプロキシ先は AD サイト内のいずれかのサーバーの EdgeTransport となります。ここでは 2 台あるため、以下のとおり 2 つのパターンで配信が行われます。</p>
+<p><img src="080808.jpg" alt=""></p>
+<p>上記の 1 -&gt; 2’ -&gt; 3’ -&gt; 4 の場合の Received ヘッダーは以下のようになります。</p>
+<blockquote>
+<p>Received: from E2013-2-E.e.local (192.168.1.53) by E2013-1-E.e.local (192.168.1.52) with Microsoft SMTP Server (TLS) id 15.0.1210.3 via Mailbox Transport; Sat, 30 Jul 2016 09:27:50 +0900<br>Received: from E2013-1-E.e.local (192.168.1.52) by E2013-2-E.e.local (192.168.1.53) with Microsoft SMTP Server (TLS) id 15.0.1210.3; Fri, 29 Jul 2016 17:27:50 -0700<br>Received: from POP-SMTP (192.168.1.91) by E2013-1-E.e.local (192.168.1.52) with Microsoft SMTP Server id 15.0.1210.3 via Frontend Transport; Sat, 30 Jul 2016 09:27:50 +0900</p>
+</blockquote>
+<p>なお、メッセージの配信のトラブルシュートの際には一般的には以下のログが役に立ちます。</p>
+<ul>
+<li>メッセージ追跡ログ</li>
+<li>SMTP プロトコル ログ</li>
+</ul>
+<p>Exchange 2013 では メッセージ追跡ログは既定で有効です。SMTP プロトコル ログは既定で有効ではないコネクタもあるため、管理者が明示的に有効化する必要があります。<br>SMTP ログは SMTP RECEIVE、SMTP SEND ログに分かれており、ログの有効化は受信コネクタ、送信コネクタ、そして “組織内の送信コネクタ” のそれぞれで実施する必要があります。<br>(“組織内の送信コネクタ” は組織内の Exchange サーバーへの送信に利用される送信コネクタです)。</p>
+<p>送受信コネクタについては、Set-SendConnector/Set-ReceiveConnector の ProtocolLoggingLevel パラメータを “Verbose” を指定することで有効化できます。組織内の送信コネクタについては、サーバー単位で、Set-TransportService の IntraOrgConnectorProtocolLoggingLevel にて “Verbose” 指定することで有効化できます。<br>ログの出力先は、Get-TransportService と Get-FrontendTransportService の ReceiveProtocolLogPathと SendProtocolLogPath で確認できます。</p>
+<p>  例:<br>  <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">　PS:&gt;<span class="built_in">Get-TransportService</span> e2013<span class="literal">-1</span><span class="literal">-e</span> | fl *ProtocolLogPath</span><br><span class="line"></span><br><span class="line">　ReceiveProtocolLogPath : C:\Program Files\Microsoft\Exchange Server\V15\TransportRoles\Logs\Hub\ProtocolLog\SmtpReceive</span><br><span class="line">　SendProtocolLogPath : C:\Program Files\Microsoft\Exchange Server\V15\TransportRoles\Logs\Hub\ProtocolLog\SmtpSend</span><br><span class="line"></span><br><span class="line">　PS:&gt; <span class="built_in">Get-FrontendTransportService</span> e2013<span class="literal">-1</span><span class="literal">-e</span> | fl *ProtocolLogPath</span><br><span class="line"></span><br><span class="line">　ReceiveProtocolLogPath : C:\Program Files\Microsoft\Exchange Server\V15\TransportRoles\Logs\FrontEnd\ProtocolLog\SmtpReceive</span><br><span class="line">　SendProtocolLogPath : C:\Program Files\Microsoft\Exchange Server\V15\TransportRoles\Logs\FrontEnd\ProtocolLog\SmtpSend</span><br></pre></td></tr></table></figure></p>
+<p>メール フローに関するトラブルシュートの際には、メッセージの配信がどのサーバー上のどのサービスによって実施されているのか正確に把握していることが必要である場合が多いです。<br>本ブログが Exchange 2013 のトランスポート機能の理解を深める助けになれば幸いです。</p>
+<p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmessaging.github.io/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" data-id="ckayuf5h1000ubwst6qa4cr6a" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/PowerShell%20%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          PowerShell の文字列について
+
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/Exchange%20Online%20%E3%81%A8%20Outlook%20%E3%81%AE%E8%AA%8D%E8%A8%BC%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Exchange Online と Outlook の認証キャッシュについて
+</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/EXO/" rel="tag">EXO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hybrid/" rel="tag">Hybrid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/O365Identity/" rel="tag">O365Identity</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/11/">November 2012</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E4%B8%8A%E3%81%A7%E8%87%AA%E5%B7%B1%E7%BD%B2%E5%90%8D%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%E3%81%8C%E5%88%87%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9/">Exchange 2013 のメールボックス サーバー上で自己署名証明書の有効期限が切れた際の注意点
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/">Azure AD と Exchange Online 間の同期に関するエラーの事例集
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%A8%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E6%9C%AC/">Azure AD と Exchange Online の同期とトラブルシューティングの基本
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%82%92%E4%B9%97%E3%81%A3%E5%8F%96%E3%82%89%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E5%AF%BE%E5%BF%9C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">アカウントを乗っ取られた際の対応について
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Export-Office365LicenseStatus%20%E3%81%AE%E3%81%94%E7%B4%B9%E4%BB%8B/">Export-Office365LicenseStatus のご紹介
+</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 jpmessaging<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
