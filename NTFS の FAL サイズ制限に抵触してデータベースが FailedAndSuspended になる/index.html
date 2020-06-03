@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>NTFS の FAL サイズ制限に抵触してデータベースが FailedAndSuspended になる
+ | Japan Exchange &amp; Outlook Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Exchange Serverをご利用のお客様より、最近お問い合わせが増加傾向にある NTFS の FAL サイズ制限について事象と対処策についてご紹介します。 事象概要NTFS では File Attribute List (FAL) と呼ばれるファイル毎のリストにてデータの実態がディスク上のどこに格納されているか等の情報を管理しています。この、FAL にはサイズ制限があり、使い続けている以上サ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NTFS の FAL サイズ制限に抵触してデータベースが FailedAndSuspended になる
+">
+<meta property="og:url" content="https://jpmessaging.github.io/blog/NTFS%20%E3%81%AE%20FAL%20%E3%82%B5%E3%82%A4%E3%82%BA%E5%88%B6%E9%99%90%E3%81%AB%E6%8A%B5%E8%A7%A6%E3%81%97%E3%81%A6%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8C%20FailedAndSuspended%20%E3%81%AB%E3%81%AA%E3%82%8B/index.html">
+<meta property="og:site_name" content="Japan Exchange &amp; Outlook Support Blog">
+<meta property="og:description" content="Exchange Serverをご利用のお客様より、最近お問い合わせが増加傾向にある NTFS の FAL サイズ制限について事象と対処策についてご紹介します。 事象概要NTFS では File Attribute List (FAL) と呼ばれるファイル毎のリストにてデータの実態がディスク上のどこに格納されているか等の情報を管理しています。この、FAL にはサイズ制限があり、使い続けている以上サ">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/NTFS%20%E3%81%AE%20FAL%20%E3%82%B5%E3%82%A4%E3%82%BA%E5%88%B6%E9%99%90%E3%81%AB%E6%8A%B5%E8%A7%A6%E3%81%97%E3%81%A6%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8C%20FailedAndSuspended%20%E3%81%AB%E3%81%AA%E3%82%8B/2016121401.jpg">
+<meta property="article:published_time" content="2016-12-13T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-03T03:05:04.064Z">
+<meta property="article:author" content="jpmessaging">
+<meta property="article:tag" content="Exchange">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmessaging.github.io/blog/NTFS%20%E3%81%AE%20FAL%20%E3%82%B5%E3%82%A4%E3%82%BA%E5%88%B6%E9%99%90%E3%81%AB%E6%8A%B5%E8%A7%A6%E3%81%97%E3%81%A6%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8C%20FailedAndSuspended%20%E3%81%AB%E3%81%AA%E3%82%8B/2016121401.jpg">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Japan Exchange &amp; Outlook Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Japan Exchange &amp; Outlook Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">日本マイクロソフト Exchange &amp; Outlook サポート チームのブログです</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmessaging.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-NTFS の FAL サイズ制限に抵触してデータベースが FailedAndSuspended になる" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/NTFS%20%E3%81%AE%20FAL%20%E3%82%B5%E3%82%A4%E3%82%BA%E5%88%B6%E9%99%90%E3%81%AB%E6%8A%B5%E8%A7%A6%E3%81%97%E3%81%A6%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8C%20FailedAndSuspended%20%E3%81%AB%E3%81%AA%E3%82%8B/" class="article-date">
+  <time datetime="2016-12-13T15:00:00.000Z" itemprop="datePublished">2016-12-14</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NTFS の FAL サイズ制限に抵触してデータベースが FailedAndSuspended になる
+
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="/blog/NTFS%20%E3%81%AE%20FAL%20%E3%82%B5%E3%82%A4%E3%82%BA%E5%88%B6%E9%99%90%E3%81%AB%E6%8A%B5%E8%A7%A6%E3%81%97%E3%81%A6%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8C%20FailedAndSuspended%20%E3%81%AB%E3%81%AA%E3%82%8B/" class="article-date-single">    
+    
+    <time datetime="2016-12-13T15:00:00.000Z" itemprop="dateUpdated">2016-12-14</time>
+    
+</a>              
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Exchange Serverをご利用のお客様より、最近お問い合わせが増加傾向にある NTFS の FAL サイズ制限について事象と対処策についてご紹介します。</p>
+<h2 id="事象概要"><a href="#事象概要" class="headerlink" title="事象概要"></a>事象概要</h2><p>NTFS では File Attribute List (FAL) と呼ばれるファイル毎のリストにてデータの実態がディスク上のどこに格納されているか等の情報を管理しています。この、FAL にはサイズ制限があり、使い続けている以上サイズが小さくなることはありません。<br>このため、長期にわたり運用されている環境や、非常に大きなデータベース ファイルを運用されている場合、フラグメントの進行とともに この FAL のサイズが大きくなり、最終的にサイズ制限に抵触することがあります。<br>この場合、NTFS としてデータベースへの書き込みができなくなるため、Exchange Server (主にメールボックス サーバー) では結果としてデータベースのマウントが解除される、または DAG  のデータベース コピーのレプリケーションが停止し、データベース コピーの状態が FailedAndSuspended になるなどの問題につながります。</p>
+<p>このとき、以下のエラーがアプリケーション ログに記録され、該当のデータベース ファイルの NTFS の FAL サイズ制限に抵触したことがわかります。</p>
+<blockquote>
+<p>ソース: ESE<br>イベント ID: 482<br>レベル: エラー<br>説明:<br>Information Store - &lt;データベース名&gt; (13184) &lt;データベース名&gt;: ファイル “&lt;edb ファイル パス&gt;” のオフセット 4075655528448 (0x000003b4f0000000) に 0 (0x00000000) バイトを書き込めもうとしましたが、システム エラー 665 (0x00000299): “ファイル システム制限のため、要求された操作を完了できませんでした “ のため、0.000 秒経過しても書き込むことができませんでした。書き込み処理は、エラー -1022 (0xfffffc02) のため失敗します。このエラーが引き続き発生する場合は、ファイルが破損していて以前のバックアップからこのファイルを復元する必要がある可能性があります。</p>
+</blockquote>
+<p>上記のイベントにありますエラー コード 665 (0x00000299) は ERROR_FILE_SYSTEM_LIMITATION を意味し、イベントに記録されているデータベース ファイルが NTFS の FAL のサイズ制限に抵触しているため書き込みが行えなかったことを示しています。<br>また、Exchange 2010 環境の場合は以下の ESE 739 のエラーも記録されます。</p>
+<blockquote>
+<p>ソース: ESE<br>イベント ID: 739<br>レベル: エラー<br>説明:<br>Information Store (13184) &lt;データベース名&gt;: データベース ‘&lt;edb ファイル パス&gt;’ の NTFS ファイル属性サイズが 257216 バイトで、204800 バイトのしきい値を超えています。データベースのファイルを再シードするか、コピーまたはバックアップから復元して、データベース ファイルがファイル システム制限により拡張できなくなることを防ぐ必要があります。</p>
+</blockquote>
+<h2 id="対処策"><a href="#対処策" class="headerlink" title="対処策"></a>対処策</h2><p>この動作は NTFS の制限となるため、対処策としては DAG 環境の場合は再シードを実施する、あるいはバックアップ ファイルから復元する等して、データベース ファイルを作り直す必要ございます。<br>データベース コピーを再シードする場合は、以下の参考情報をご参照ください。</p>
+<p>Title: メールボックス データベース コピーの更新<br>URL (Exchange 2010): <a href="https://technet.microsoft.com/ja-jp/library/dd351100(v=exchg.141).aspx" target="_blank" rel="noopener">https://technet.microsoft.com/ja-jp/library/dd351100(v=exchg.141).aspx</a><br>URL (Exchange 2013): <a href="https://technet.microsoft.com/ja-jp/library/dd351100(v=exchg.150).aspx" target="_blank" rel="noopener">https://technet.microsoft.com/ja-jp/library/dd351100(v=exchg.150).aspx</a></p>
+<h2 id="補足情報"><a href="#補足情報" class="headerlink" title="補足情報"></a>補足情報</h2><p>Exchange 2010 は RTM を 2009 年 11 月にリリースしてから約 7 年が経過しました。<br>これまでの運用において、DAG 環境で再シードを実施する機会がなかった場合は、長い運用期間の中でファイルのフラグメントと共にデータベース ファイルの FAL が大きくなってきており、それが弊社サポートへの本事象のお問合せ増加の要因となっていると考えられます。<br>DAG 環境の場合は、データベースの再シードを実施することで本事象の発生を起きにくくすることが可能です。</p>
+<p>その他に本事象で考慮が必要な点として、NTFS アロケーション ユニット サイズ (ディスク上でひとまとまりのブロックとして扱うサイズ) がございます。<br>Exchange 2010, Exchange 2013 での NTFS アロケーション ユニット サイズ は共に 64 KB が推奨値となっておりますが、推奨値以下で運用いただいている場合はこの事象が発生しやすくなります。<br>推奨値以下の場合は、データベースの 1 ページあたりの書き込みが複数に分けられて書き込まれることから、必ずしも隣り合わせのセクションに書き込まれるとは限らないため、断片化が生じやすく、FAL のサイズも増加しやすくなります。</p>
+<p>現在の NTFS アロケーション ユニット サイズは以下のコマンドにて確認が可能です。</p>
+<h3 id="手順"><a href="#手順" class="headerlink" title="手順"></a>手順</h3><ol>
+<li><p>コマンド プロンプトを管理者権限で起動します。</p>
+</li>
+<li><p>以下のコマンドを実行します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsutil fsinfo ntfsinfo &lt;ドライブ レター&gt;:</span><br></pre></td></tr></table></figure>
+<p>例) </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsutil fsinfo ntfsinfo F:</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>“クラスターあたりのバイト数” (英語の場合は Bytes Per Cluster) より現在の NTFS アロケーション ユニット サイズを確認します。</p>
+<p><img src="2016121401.jpg" alt=""></p>
+</li>
+</ol>
+<p>&nbsp;<br>また、以下のブログにて Exchange 2007 についてではありますが、本事象についての詳細をご紹介しています。</p>
+<p>Title: How fragmentation on incorrectly formatted NTFS volumes affects Exchange<br>URL: <a href="https://blogs.technet.microsoft.com/mikelag/2011/02/09/how-fragmentation-on-incorrectly-formatted-ntfs-volumes-affects-exchange/" target="_blank" rel="noopener">https://blogs.technet.microsoft.com/mikelag/2011/02/09/how-fragmentation-on-incorrectly-formatted-ntfs-volumes-affects-exchange/</a></p>
+<p>※ 本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmessaging.github.io/blog/NTFS%20%E3%81%AE%20FAL%20%E3%82%B5%E3%82%A4%E3%82%BA%E5%88%B6%E9%99%90%E3%81%AB%E6%8A%B5%E8%A7%A6%E3%81%97%E3%81%A6%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%81%8C%20FailedAndSuspended%20%E3%81%AB%E3%81%AA%E3%82%8B/" data-id="ckays4u7p000p7wstfch32rx5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/New-EdgeSubscription%20%E5%AE%9F%E8%A1%8C%E6%99%82%E3%81%AB%E3%82%B9%E3%83%9E%E3%83%BC%E3%83%88%20%E3%82%AB%E3%83%BC%E3%83%89%E8%AA%8D%E8%A8%BC%E3%81%8C%E6%B1%82%E3%82%81%E3%82%89%E3%82%8C%E3%82%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          New-EdgeSubscription 実行時にスマート カード認証が求められる
+
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/PowerShell%20%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">PowerShell の文字列について
+</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/EXO/" rel="tag">EXO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hybrid/" rel="tag">Hybrid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/O365Identity/" rel="tag">O365Identity</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/11/">November 2012</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E4%B8%8A%E3%81%A7%E8%87%AA%E5%B7%B1%E7%BD%B2%E5%90%8D%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%E3%81%8C%E5%88%87%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9/">Exchange 2013 のメールボックス サーバー上で自己署名証明書の有効期限が切れた際の注意点
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/">Azure AD と Exchange Online 間の同期に関するエラーの事例集
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%A8%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E6%9C%AC/">Azure AD と Exchange Online の同期とトラブルシューティングの基本
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%82%92%E4%B9%97%E3%81%A3%E5%8F%96%E3%82%89%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E5%AF%BE%E5%BF%9C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">アカウントを乗っ取られた際の対応について
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Export-Office365LicenseStatus%20%E3%81%AE%E3%81%94%E7%B4%B9%E4%BB%8B/">Export-Office365LicenseStatus のご紹介
+</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 jpmessaging<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

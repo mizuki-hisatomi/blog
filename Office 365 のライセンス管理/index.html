@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Office 365 のライセンス管理
+ | Japan Exchange &amp; Outlook Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは。いつも Office 365 を利用いただきまして、ありがとうございます。今回は、Office 365 のライセンス管理について、ご紹介いたします。 &amp;nbsp; Office 365 でユーザーにライセンスを付与するには、GUI（Office 365 管理センター）で操作する方法と、PowerShell で操作する方法があります。少人数の作業であれば前者で問題ありませんが、ユーザーが">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Office 365 のライセンス管理
+">
+<meta property="og:url" content="https://jpmessaging.github.io/blog/Office%20365%20%E3%81%AE%E3%83%A9%E3%82%A4%E3%82%BB%E3%83%B3%E3%82%B9%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="Japan Exchange &amp; Outlook Support Blog">
+<meta property="og:description" content="こんにちは。いつも Office 365 を利用いただきまして、ありがとうございます。今回は、Office 365 のライセンス管理について、ご紹介いたします。 &amp;nbsp; Office 365 でユーザーにライセンスを付与するには、GUI（Office 365 管理センター）で操作する方法と、PowerShell で操作する方法があります。少人数の作業であれば前者で問題ありませんが、ユーザーが">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-04-01T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-03T03:05:04.069Z">
+<meta property="article:author" content="jpmessaging">
+<meta property="article:tag" content="O365Identity">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Japan Exchange &amp; Outlook Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Japan Exchange &amp; Outlook Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">日本マイクロソフト Exchange &amp; Outlook サポート チームのブログです</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmessaging.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Office 365 のライセンス管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/Office%20365%20%E3%81%AE%E3%83%A9%E3%82%A4%E3%82%BB%E3%83%B3%E3%82%B9%E7%AE%A1%E7%90%86/" class="article-date">
+  <time datetime="2018-04-01T15:00:00.000Z" itemprop="datePublished">2018-04-02</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Office 365 のライセンス管理
+
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="/blog/Office%20365%20%E3%81%AE%E3%83%A9%E3%82%A4%E3%82%BB%E3%83%B3%E3%82%B9%E7%AE%A1%E7%90%86/" class="article-date-single">    
+    
+    <time datetime="2018-04-01T15:00:00.000Z" itemprop="dateUpdated">2018-04-02</time>
+    
+</a>              
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは。いつも Office 365 を利用いただきまして、ありがとうございます。<br>今回は、Office 365 のライセンス管理について、ご紹介いたします。</p>
+<p>&nbsp;</p>
+<p>Office 365 でユーザーにライセンスを付与するには、GUI（Office 365 管理センター）で操作する方法と、PowerShell で操作する方法があります。<br>少人数の作業であれば前者で問題ありませんが、ユーザーが多い場合や、スクリプトとして実行したいような場合は後者の方法が有効です。</p>
+<p>&nbsp;</p>
+<p>よくあるお問い合わせのシナリオに沿って、ライセンス管理の PowerShell コマンドをご案内いたします。<br>ライセンス名やサービスプランを変更することによって応用が可能です。</p>
+<p>&nbsp;</p>
+<h2 id="事前準備（必須）"><a href="#事前準備（必須）" class="headerlink" title="事前準備（必須）"></a>事前準備（必須）</h2><p>下記の作業は、どのシナリオにおいても共通です。</p>
+<p>▼Office 365 に PowerShell 接続します。<br>下記の公開情報に従って Azure Active Directory の PowerShell モジュール（MSOnline）をインストールします。</p>
+<p>Azure Active Directory の PowerShell モジュール<br><a href="https://blogs.technet.microsoft.com/jpazureid/2017/12/04/aad-powershell/" target="_blank" rel="noopener">https://blogs.technet.microsoft.com/jpazureid/2017/12/04/aad-powershell/</a></p>
+<p>Office 365 PowerShell への接続<br><a href="https://docs.microsoft.com/ja-jp/office365/enterprise/powershell/connect-to-office-365-powershell" target="_blank" rel="noopener">https://docs.microsoft.com/ja-jp/office365/enterprise/powershell/connect-to-office-365-powershell</a></p>
+<p>その後、Connect-MsolService コマンドを実行し、管理者権限で Office 365 に接続します。</p>
+<p>▼Office 365 テナントに紐づくライセンスの情報を確認します。<br>Get-MsolAccountSku コマンドを実行し、ライセンスの AccountSkuId を確認します。</p>
+<p>コマンド実行例：</p>
+<table width="700" border="0">
+<tbody>
+<tr>
+<th><span style="color: #808080">AccountSkuId</span></th>
+<th><span style="color: #808080">ActiveUnits</span></th>
+<th><span style="color: #808080">WarningUnits</span></th>
+<th><span style="color: #808080">ConsumedUnits</span></th>
+<th></th>
+</tr>
+<tr>
+<th><span style="color: #808080">------------</span></th>
+<th><span style="color: #808080">-----------</span></th>
+<th><span style="color: #808080">------------</span></th>
+<th><span style="color: #808080">-------------</span></th>
+<th></th>
+</tr>
+<tr>
+<th><span style="color: #808080">contoso:STANDARDPACK</span></th>
+<th><span style="color: #808080">100</span></th>
+<th><span style="color: #808080">0</span></th>
+<th><span style="color: #808080">10</span></th>
+<th><span style="color: #808080">＜＜＜Office 365 Enterprise E1</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">contoso:ENTERPRISEPACK</span></th>
+<th><span style="color: #808080">100</span></th>
+<th><span style="color: #808080">0</span></th>
+<th><span style="color: #808080">10</span></th>
+<th><span style="color: #808080">＜＜＜Office 365 Enterprise E3</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">contoso:ENTERPRISEPREMIUM</span></th>
+<th><span style="color: #808080">100</span></th>
+<th><span style="color: #808080">0</span></th>
+<th><span style="color: #808080">10</span></th>
+<th><span style="color: #808080">＜＜＜Office 365 Enterprise E5</span></th>
+</tr>
+</tbody>
+</table>
+<strong>・・・</strong>
+
+
+<p>▼ユーザーの UsageLocation を設定します。<br>ライセンスを割り当てるユーザーは、事前に UsageLocation が設定されている必要があります。設定されていない場合にはライセンス割り当てに失敗します。<br>そのため、はじめてライセンス割り当てを行うユーザーの場合は、事前に次のコマンドで UsageLocation を設定します。</p>
+<p>下記のコマンドを実行し、特定のユーザーの UsageLocation を ”JP” に設定します。</p>
+<p>Set-MsolUser -UserPrincipalName &lt;対象ユーザーの UPN&gt; -UsageLocation “JP”</p>
+<p>下記のコマンドを実行し、csv ファイル（後述）に記載されたユーザーの UsageLocation を ”JP” に一括設定します。</p>
+<p>  Import-Csv &lt;csv ファイル名&gt; | ForEach-Object {Set-MsolUser -UserPrincipalName $_.UserPrincipalName -UsageLocation “JP”}</p>
+<p>- 参考情報<br>UsageLocation は、ISO 3166-1 alpha-2 (A2) の 2 文字の国/地域コードを指定します。<br><a href="https://www.iso.org/obp/ui/#search/code/" target="_blank" rel="noopener">https://www.iso.org/obp/ui/#search/code/</a></p>
+<h2 id="事前準備（任意）"><a href="#事前準備（任意）" class="headerlink" title="事前準備（任意）"></a>事前準備（任意）</h4></h2><p>csv ファイルを使用してライセンスの一括割当・変更を行う場合は、下記を事前準備として実施ください。</p>
+<p>▼全ユーザーの UserPrincipalName 一覧を csv ファイルに出力します。</p>
+<p>Get-MsolUser -all | Select-Object UserPrincipalName | export-csv &lt;出力先の csv ファイル&gt; -Encoding UTF8 -NoTypeInformation</p>
+<p>▼特定ライセンスが付与されているユーザーの UserPrincipalName 一覧を csv ファイルに出力します。</p>
+<p>Get-MsolUser | where {$_.Licenses.AccountSkuID -contains “&lt;対象ライセンスの AccountSkuId&gt;”} | Select-Object UserPrincipalName | export-csv &lt;出力先の csv ファイル&gt; -Encoding UTF8 -NoTypeInformation</p>
+<p>コマンド実行例：※E1 ライセンスが付与されているユーザーの一覧を c:\temp\users.csv ファイルに出力する場合</p>
+<p><span style="color: #000000">Get-MsolUser | where {$_.Licenses.AccountSkuID -contains “contoso:STANDARDPACK”} | Select-Object UserPrincipalName | Export-Csv “C:\Temp\users.csv” -encoding UTF8 -NoTypeInformation</span></p>
+<p>csv ファイルは、下記の形式で作成されます。<br>ライセンス割当・変更を行う対象ユーザーが事前に分かっている場合は、手動作成でも問題ありません。</p>
+<hr>
+<p>UserPrincipalName<br><a href="mailto:testuser01@contoso.onmicrosoft.com">testuser01@contoso.onmicrosoft.com</a><br><a href="mailto:testuser02@contoso.onmicrosoft.com">testuser02@contoso.onmicrosoft.com</a><br>・・・</p>
+<hr>
+<p>ユーザーにライセンスを付与する際、特定のサービスプランのみ有効化する場合は、下記を事前準備として実施ください。</p>
+<p>▼作業対象ライセンスに含まれるサービスプランの情報を確認します。</p>
+<p>(Get-MsolAccountSku | where {$_.AccountSkuId -eq “&lt;確認したいライセンスの AccountSkuId&gt;”}).ServiceStatus</p>
+<p>コマンド実行例：　※Office 365 Enterprise E3 の場合（サービスプランは、2018/03/28 時点の情報です）</p>
+<p>(Get-MsolAccountSku | where {$_.AccountSkuId -eq “contoso:ENTERPRISEPACK”}).ServiceStatus</p>
+<p>&nbsp;</p>
+<table width="699" border="0">
+<tbody>
+<tr>
+<th><span style="color: #808080">ServicePlan</span></th>
+<th><span style="color: #808080">ProvisioningStatus</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">-----------</span></th>
+<th><span style="color: #808080">------------------</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">RMS_S_ENTERPRISE</span></th>
+<th><span style="color: #808080">Success ＜＜＜Azure Rights Management</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">EXCHANGE_S_ENTERPRISE</span></th>
+<th><span style="color: #808080">Success ＜＜＜Exchange Online (Plan 2)</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">FLOW_O365_P2</span></th>
+<th><span style="color: #808080">Success ＜＜＜Flow for Office 365 Plan 2</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">FORMS_PLAN_E3</span></th>
+<th><span style="color: #808080">Success ＜＜＜Microsoft Forms (Plan E3)</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">PROJECTWORKMANAGEMENT</span></th>
+<th><span style="color: #808080">Success ＜＜＜Microsoft Planner</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">Deskless</span></th>
+<th><span style="color: #808080">Success ＜＜＜Microsoft StaffHub</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">STREAM_O365_E3</span></th>
+<th><span style="color: #808080">Success ＜＜＜Microsoft Stream for O365 E3 SKU</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">TEAMS1</span></th>
+<th><span style="color: #808080">Success ＜＜＜Microsoft Teams</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">INTUNE_O365/th&gt;</span></th>
+<th><span style="color: #808080">Success ＜＜＜Mobile Device Management for Office 365</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">OFFICESUBSCRIPTION</span></th>
+<th><span style="color: #808080">Success ＜＜＜Office 365 ProPlus</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">SHAREPOINTWAC</span></th>
+<th><span style="color: #808080">Success ＜＜＜Office Online</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">POWERAPPS_O365_P2</span></th>
+<th><span style="color: #808080">Success ＜＜＜PowerApps for Office 365 Plan 2</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">SHAREPOINTENTERPRISE</span></th>
+<th><span style="color: #808080">Success ＜＜＜SharePoint Online (Plan 2)</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">MCOSTANDARD</span></th>
+<th><span style="color: #808080">Success ＜＜＜Skype for Business Online (Plan 2)</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">SWAY</span></th>
+<th><span style="color: #808080">Success ＜＜＜Sway</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">BPOS_S_TODO_2</span></th>
+<th><span style="color: #808080">Success ＜＜＜To-Do (Plan 2)</span></th>
+</tr>
+<tr>
+<th><span style="color: #808080">YAMMER_ENTERPRISE</span></th>
+<th><span style="color: #808080">Success ＜＜＜Yammer Enterprise</span></th>
+</tr>
+</tbody>
+</table>
+&nbsp;
+
+<p>▼PowerShell 上で変数 disabledplans を作成し、無効とするサービス プランの情報を変数に格納します。<br>下記のコマンドを実行し、割り当てるライセンスのうち、無効にするサービスを指定し、変数 disabledplans に格納します。<br>$disabledplans = New-Object System.Collections.Generic.List[string]<br>$disabledplans.Add(“&lt;無効にする ServicePlan&gt;”)<br>$disabledplans.Add(“&lt;無効にする ServicePlan&gt;”)<br>・・・<br>$licenses = New-MsolLicenseOptions -AccountSkuId “&lt;割り当てるライセンスの AccountSkuId&gt;” -DisabledPlans $disabledplans</p>
+<p>コマンド実行例：<br>※contoso:ENTERPRISEPACK ライセンスを割り当てる際に、Microsoft Teams、Sway、Yammer Enterprise を無効にする場合<br><span style="color: #000000">$disabledplans = New-Object System.Collections.Generic.List[string]<br>$disabledplans.Add(“TEAMS”)<br>$disabledplans.Add(“SWAY”)<br>$disabledplans.Add(“YAMMER_ENTERPRISE”)<br>$licenses = New-MsolLicenseOptions -AccountSkuId “contoso:ENTERPRISEPACK” -DisabledPlans $disabledplans</span></p>
+<h2 id="シナリオ-A-新規ユーザーにライセンスを割り当てます。"><a href="#シナリオ-A-新規ユーザーにライセンスを割り当てます。" class="headerlink" title="シナリオ A. 新規ユーザーにライセンスを割り当てます。"></a>シナリオ A. 新規ユーザーにライセンスを割り当てます。</h2><p>▼特定のユーザーに対して、全てのサービスプランを有効化してライセンスを付与します。</p>
+<p>Set-MsolUserLicense -UserPrincipalName &lt;UPN&gt; -AddLicenses “&lt;付与ライセンスの AccountSkuId&gt;”</p>
+<p>▼csv ファイルで指定したユーザーに対して、一括で処理するには、下記のコマンドを実行します。</p>
+<p>Import-Csv -Path &lt;csv ファイルのパス名&gt; | ForEach-Object {Set-MsolUserLicense -UserPrincipalName $_.UserPrincipalName -AddLicenses “&lt;付与ライセンスの AccountSkuId&gt;”}</p>
+<p>▼一部のサービスのみ有効化してライセンスを付与します。</p>
+<p>Set-MsolUserLicense -UserPrincipalName &lt;UPN&gt; -AddLicenses “&lt;付与ライセンスの AccountSkuId&gt;” -LicenseOptions $licenses</p>
+<p>▼csv ファイルで指定したユーザーに対して、一括で処理するには、下記のコマンドを実行します。</p>
+<p>Import-Csv -Path &lt;csv ファイルのパス名&gt; | ForEach-Object {Set-MsolUserLicense -UserPrincipalName $_.UserPrincipalName -AddLicenses “&lt;付与ライセンスの AccountSkuId&gt;” -LicenseOptions $licenses}</p>
+<h2 id="シナリオ-B-ユーザーからライセンスを削除します。"><a href="#シナリオ-B-ユーザーからライセンスを削除します。" class="headerlink" title="シナリオ B. ユーザーからライセンスを削除します。"></a>シナリオ B. ユーザーからライセンスを削除します。</h2><p>▼特定のユーザーに対して、ライセンスを削除します。</p>
+<p>Set-MsolUserLicense -UserPrincipalName &lt;UPN&gt; -RemoveLicenses &lt;”削除ライセンスの AccountSkuId”&gt;</p>
+<p>▼csv ファイルで指定したユーザーに対して、一括で処理するには、下記のコマンドを実行します。</p>
+<p>Import-Csv -Path &lt;csv ファイルのパス名&gt; | ForEach-Object {Set-MsolUserLicense -UserPrincipalName $_.UserPrincipalName -RemoveLicenses “&lt;削除ライセンスの AccountSkuId&gt;”}</p>
+<h2 id="シナリオ-C-同一ライセンス内で、有効にするサービスプランを変更します。"><a href="#シナリオ-C-同一ライセンス内で、有効にするサービスプランを変更します。" class="headerlink" title="シナリオ C. 同一ライセンス内で、有効にするサービスプランを変更します。"></a>シナリオ C. 同一ライセンス内で、有効にするサービスプランを変更します。</h2><p>▼特定のユーザーに対して、サービスプランを変更します。　※AddLicenses オプションは使用しません。</p>
+<p>Set-MsolUserLicense -UserPrincipalName &lt;UPN&gt; -LicenseOptions $licenses</p>
+<p>▼csv ファイルで指定したユーザーに対して、一括で処理するには、下記のコマンドを実行します。</p>
+<p>Import-Csv -Path &lt;csv ファイルのパス名&gt; | ForEach-Object {Set-MsolUserLicense -UserPrincipalName $_.UserPrincipalName -LicenseOptions $licenses}</p>
+<h2 id="シナリオ-D-ライセンス変更を行います。"><a href="#シナリオ-D-ライセンス変更を行います。" class="headerlink" title="シナリオ D. ライセンス変更を行います。"></a>シナリオ D. ライセンス変更を行います。</h2><p>▼特定のユーザーに対して、ライセンス変更を行います（変更後は、全てのサービスプランを有効化）</p>
+<p>Set-MsolUserLicense -UserPrincipalName &lt;UPN&gt; -RemoveLicenses “&lt;変更前の AccountSkuId&gt;” -AddLicenses “&lt;変更後の AccountSkuId&gt;”</p>
+<p>▼csv ファイルで指定したユーザーに対して、一括で処理するには、下記のコマンドを実行します。</p>
+<p>Import-Csv -Path &lt;csv ファイルのパス名&gt; | ForEach-Object {Set-MsolUserLicense -UserPrincipalName $_.UserPrincipalName -RemoveLicenses “&lt;変更前の AccountSkuId&gt;” -AddLicenses “&lt;変更後の AccountSkuId&gt;”}</p>
+<p>▼特定のユーザーに対して、ライセンス変更を行います（変更後は、一部のサービスのみ有効化）</p>
+<p>Set-MsolUserLicense -UserPrincipalName &lt;UPN&gt; -RemoveLicenses “&lt;変更前の AccountSkuId&gt;” -AddLicenses “&lt;変更後の AccountSkuId&gt;” -LicenseOptions $licenses</p>
+<p>▼csv ファイルで指定したユーザーに対して、一括で処理するには、下記のコマンドを実行します。</p>
+<p>Import-Csv -Path &lt;csv ファイルのパス名&gt; | ForEach-Object {Set-MsolUserLicense -UserPrincipalName $_.UserPrincipalName -RemoveLicenses “&lt;変更前の AccountSkuId&gt;” -AddLicenses “&lt;変更後の AccountSkuId&gt;” -LicenseOptions $licenses}</p>
+<h2 id="事後確認"><a href="#事後確認" class="headerlink" title="事後確認"></a>事後確認</h2><p>▼作業対象ユーザーのライセンス付与状況を確認します。</p>
+<p>Get-MsolUser -UserPrincipalName &lt;UPN&gt; | Select-Object -ExpandProperty Licenses</p>
+<p>▼サービスプランまで確認するには、下記のコマンドを実行します。</p>
+<p>Get-MsolUser -UserPrincipalName &lt;UPN&gt; | Select-Object -ExpandProperty Licenses | Select-Object -ExpandProperty ServiceStatus</p>
+<p>ユーザーのライセンス保持状況を確認するには、[Office 365 管理センター] - [アクティブなユーザー] にて csv ファイルをエクスポートする方法が有効です。</p>
+<p><a href="/blog/Export-Office365LicenseStatus%20のご紹介">サンプルスクリプト</a>も公開しておりますので、ご活用ください。</p>
+<h2 id="参考情報"><a href="#参考情報" class="headerlink" title="参考情報"></a>参考情報</h2><p>Office 365 PowerShell を使用してライセンスをユーザー アカウントに割り当てる<br><a href="https://technet.microsoft.com/ja-jp/library/dn771770.aspx" target="_blank" rel="noopener">https://technet.microsoft.com/ja-jp/library/dn771770.aspx</a></p>
+<p>Office 365 PowerShell を使ったサービスへのアクセスを無効にする<br><a href="https://technet.microsoft.com/ja-jp/library/dn771769.aspx" target="_blank" rel="noopener">https://technet.microsoft.com/ja-jp/library/dn771769.aspx</a></p>
+<p>Windows PowerShell コマンドでの新規ユーザー一括作成手順 (ライセンス付与、パスワード同時設定)<br><a href="https://answers.microsoft.com/ja-jp/msoffice/forum/msoffice_o365admin-mso_manage/windows-powershell/b0dbbafd-ec0d-401f-9d88-b6b4fc72f6f6" target="_blank" rel="noopener">https://answers.microsoft.com/ja-jp/msoffice/forum/msoffice_o365admin-mso_manage/windows-powershell/b0dbbafd-ec0d-401f-9d88-b6b4fc72f6f6</a></p>
+<p>今後も Office 365 サービスに関する有益な情報を発信してまいりますので、弊社サポート ブログをよろしくお願いいたします。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmessaging.github.io/blog/Office%20365%20%E3%81%AE%E3%83%A9%E3%82%A4%E3%82%BB%E3%83%B3%E3%82%B9%E7%AE%A1%E7%90%86/" data-id="ckays4u7r000r7wst6uxbhwvu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/O365Identity/" rel="tag">O365Identity</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/Office%20365%20%E3%82%BF%E3%82%A4%E3%83%AB%E3%81%AE%E9%9D%9E%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Office 365 タイルの非表示方法
+
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/%E3%82%B3%E3%83%8D%E3%82%AF%E3%82%BF%E8%A8%AD%E5%AE%9A%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%203%20%E3%81%A4%E3%81%AE%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%20(%E9%80%81%E4%BF%A1%E5%85%83%20%20%E7%B5%84%E7%B9%94%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC)/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">コネクタ設定における 3 つのポイント (送信元  組織のメール サーバー)
+</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/EXO/" rel="tag">EXO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hybrid/" rel="tag">Hybrid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/O365Identity/" rel="tag">O365Identity</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/11/">November 2012</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E4%B8%8A%E3%81%A7%E8%87%AA%E5%B7%B1%E7%BD%B2%E5%90%8D%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%E3%81%8C%E5%88%87%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9/">Exchange 2013 のメールボックス サーバー上で自己署名証明書の有効期限が切れた際の注意点
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/">Azure AD と Exchange Online 間の同期に関するエラーの事例集
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%A8%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E6%9C%AC/">Azure AD と Exchange Online の同期とトラブルシューティングの基本
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%82%92%E4%B9%97%E3%81%A3%E5%8F%96%E3%82%89%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E5%AF%BE%E5%BF%9C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">アカウントを乗っ取られた際の対応について
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Export-Office365LicenseStatus%20%E3%81%AE%E3%81%94%E7%B4%B9%E4%BB%8B/">Export-Office365LicenseStatus のご紹介
+</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 jpmessaging<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

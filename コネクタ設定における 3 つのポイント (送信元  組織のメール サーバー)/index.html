@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>コネクタ設定における 3 つのポイント (送信元  組織のメール サーバー)
+ | Japan Exchange &amp; Outlook Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="今回は Exchange Online のメール フローにおいて、お客様からしばしばお問い合わせをいただいておりますオンプレミスのサーバー向けにコネクタ設定を行う際の注意点をお伝えします。 Exchange Online は特定の送信元 IP から急激なメール受信量の増加を検知すると、サービスを保護するために当該 IP からのメール受信を自動的に制限し、遅延受信させます。これは以下の blog で">
+<meta property="og:type" content="article">
+<meta property="og:title" content="コネクタ設定における 3 つのポイント (送信元  組織のメール サーバー)
+">
+<meta property="og:url" content="https://jpmessaging.github.io/blog/%E3%82%B3%E3%83%8D%E3%82%AF%E3%82%BF%E8%A8%AD%E5%AE%9A%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%203%20%E3%81%A4%E3%81%AE%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%20(%E9%80%81%E4%BF%A1%E5%85%83%20%20%E7%B5%84%E7%B9%94%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC)/index.html">
+<meta property="og:site_name" content="Japan Exchange &amp; Outlook Support Blog">
+<meta property="og:description" content="今回は Exchange Online のメール フローにおいて、お客様からしばしばお問い合わせをいただいておりますオンプレミスのサーバー向けにコネクタ設定を行う際の注意点をお伝えします。 Exchange Online は特定の送信元 IP から急激なメール受信量の増加を検知すると、サービスを保護するために当該 IP からのメール受信を自動的に制限し、遅延受信させます。これは以下の blog で">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-12-06T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-03T03:05:04.077Z">
+<meta property="article:author" content="jpmessaging">
+<meta property="article:tag" content="EXO">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Japan Exchange &amp; Outlook Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Japan Exchange &amp; Outlook Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">日本マイクロソフト Exchange &amp; Outlook サポート チームのブログです</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmessaging.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-コネクタ設定における 3 つのポイント (送信元  組織のメール サーバー)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/%E3%82%B3%E3%83%8D%E3%82%AF%E3%82%BF%E8%A8%AD%E5%AE%9A%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%203%20%E3%81%A4%E3%81%AE%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%20(%E9%80%81%E4%BF%A1%E5%85%83%20%20%E7%B5%84%E7%B9%94%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC)/" class="article-date">
+  <time datetime="2017-12-06T15:00:00.000Z" itemprop="datePublished">2017-12-07</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      コネクタ設定における 3 つのポイント (送信元  組織のメール サーバー)
+
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="/blog/%E3%82%B3%E3%83%8D%E3%82%AF%E3%82%BF%E8%A8%AD%E5%AE%9A%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%203%20%E3%81%A4%E3%81%AE%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%20(%E9%80%81%E4%BF%A1%E5%85%83%20%20%E7%B5%84%E7%B9%94%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC)/" class="article-date-single">    
+    
+    <time datetime="2017-12-06T15:00:00.000Z" itemprop="dateUpdated">2017-12-07</time>
+    
+</a>              
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今回は Exchange Online のメール フローにおいて、お客様からしばしばお問い合わせをいただいておりますオンプレミスのサーバー向けにコネクタ設定を行う際の注意点をお伝えします。</p>
+<p>Exchange Online は特定の送信元 IP から急激なメール受信量の増加を検知すると、サービスを保護するために当該 IP からのメール受信を自動的に制限し、遅延受信させます。<br>これは以下の blog でご案内の IP スロットリングの機能ですが、この特定の IP がお客様にて運用されている問題のないサーバーである場合には本機能の動作は不要であり、回避するためには送信元を組織のメール サーバー、送信先を Office 365 とするコネクタの設定が有効です。<br>&nbsp;<br>Title: IP スロットリングについて<br>URL: <a href="https://blogs.technet.microsoft.com/exchangeteamjp/2015/03/23/ip/" target="_blank" rel="noopener">https://blogs.technet.microsoft.com/exchangeteamjp/2015/03/23/ip/</a><br>&nbsp;<br>送信元を組織のメール サーバーとするコネクタを設定すると、特定の送信元サーバーからのメールをコネクタが作成されている Office 365 テナントへメールをルーティングする動作となります。<br>このようなコネクタを作成するときには以下の点について予めご留意いただきますようお願い申し上げます。</p>
+<p>&nbsp;<br><u><strong>&lt;&lt; Point 1 &gt;&gt; 他テナント宛てのメールも自テナントで受信する</strong></u><br>前述のようにコネクタを作成することで対象となるメール サーバーから送信されたメールを Office 365 が受信すると、コネクタのあるテナントへまずメールをルーティングします (後述の Point 2 および 3 でご案内の、コネクタが使用される条件を満たしていることが前提となります)。<br>そのため、宛先が別の Office 365 テナントのメール (別のお客様にご登録いただいているドメインを含むメール) である場合にも、コネクタのあるテナントでまず受信します。<br>その後、実際に宛先ドメインが登録されているテナントへメールが中継されます。<br>これは特別なことではなく、組織のメール サーバーからのメールを受信するように設定されたコネクタが適切に動作した結果です。</p>
+<p>そこで注意が必要となるのは、Exchange Online には各テナントごとにメール フローのルール設定 (トランスポート ルール) を行うことができるため、例えば自テナントに登録されていないドメイン宛てのメールはブロックするような設定を行っていると、組織のメール サーバーから他テナント宛てのメールも最終的にブロックされ届かない問題が起きます。<br>コネクタを設定する際は組織のメール サーバーからのメールは一度、自テナントにて受信し他テナントへ中継される動作となることにご注意ください。</p>
+<p>&nbsp;<br><u><strong>&lt;&lt; Point 2 &gt;&gt; 証明書ベースのコネクタが効かない場合がある</strong></u><br>組織のメール サーバーを送信元とするコネクタには、送信元を識別する方法として送信元メール サーバーが提示する証明書のサブジェクト名 (別名) または送信元 IP アドレスを選ぶことができます。<br>弊社としては前者の証明書ベースのコネクタを推奨しております。これは以下の Web サイトでご案内のように後者の IP アドレス ベースのコネクタの場合には Office 365 がメールの中継を拒否する場合があるためです。<br>&nbsp;<br> Title: Office 365 の電子メールでコネクタを構成しているお客様への重要なお知らせ<br>  URL: <a href="https://support.microsoft.com/ja-jp/help/3169958/important-notice-for-office-365-email-customers-who-have-configured-co" target="_blank" rel="noopener">https://support.microsoft.com/ja-jp/help/3169958/important-notice-for-office-365-email-customers-who-have-configured-co</a><br>&nbsp;<br>Office 365 は外部からメールを受信すると、全テナントのコネクタに設定されている証明書のサブジェクト名と、送信元メール サーバーが提示した証明書のサブジェクト名 (別名) を照らし合わせ、合致するコネクタを抽出します。<br>合致するコネクタがあると、そのコネクタに設定されているサブジェクト名がそもそもコネクタのあるテナントに登録されているドメインであるかチェックします (※ 1)。<br>証明書のサブジェクト名がテナントに登録されていないドメインである場合は、代わりに送信者 (差出人) もしくは受信者のメール ドメインがテナントに登録されているドメインかをチェックします。<br>チェックを通過したメールはコネクタ設定のあるテナントへルーティングされます。</p>
+<p>(※ 1) ワイルドカードも考慮されるため、例えばコネクタの設定が *.contoso.com であり、テナントに登録されているドメインが contoso.com や jpn.contoso.com といった場合も有効です。</p>
+<p>コネクタのサブジェクト名と証明書のサブジェクト名だけを合わせテナントに登録されているドメインとは合致しない場合には、送信者 (差出人) または受信者のメール ドメインも登録されていないドメインであると、コネクタが使用されないことをご注意ください。</p>
+<p>この点につきましては、下記 TechNet でもご案内しております。<br>&nbsp;<br>Title: Office 365 と独自の電子メール サーバーの間のメールをルーティングするようにコネクタを設定する<br>URL: <a href="https://technet.microsoft.com/ja-jp/library/dn751020(v=exchg.150).aspx" target="_blank" rel="noopener">https://technet.microsoft.com/ja-jp/library/dn751020(v=exchg.150).aspx</a></p>
+<ul>
+<li>パート 1:Office 365 から電子メール サーバーにメールが流れるように構成する (該当箇所を以下に抜粋)<br>Office 365 の承認済みドメインと一致するサブジェクト名で構成されている証明書を使用する。証明書の共通名、またはサブジェクトの別名を組織のプライマリ SMTP ドメインと一致させることをお勧めします。</li>
+</ul>
+<p>&nbsp;<br><u><strong>&lt;&lt; Point 3 &gt;&gt; コネクタがあってもメールが届かない場合がある</strong></u><br>送信元を組織のメール サーバーとするコネクタを設定すると、これまで述べてきたようにコネクタのあるテナントでまずメールを受信します。<br>証明書ベースのコネクタの場合には、Point 2 でご案内の動作により証明書のサブジェクト名 (別名)、コネクタのサブジェクト名、テナントのドメインの 3 つの条件にすべて合致することで、送受信者のメール ドメインがテナントのドメインに登録されていない場合にも有効にコネクタが動作することを説明しました。</p>
+<p>一方、IP アドレス ベースのコネクタの場合には証明書のサブジェクト名による情報がないため、全テナントから送信元 IP の設定と合致するコネクタが抽出された後、送信者 (差出人) または受信者のメール ドメインがコネクタのあるテナントに登録されているドメインかどうかのみチェックされます。</p>
+<p>ここで注意が必要となるのが、送信者 (差出人) のドメインがテナントに登録されていないケースです。<br>その場合は受信者のメール ドメインがコネクタのあるテナントに登録されているドメインかどうかがチェックされますが、送信元メール サーバーが単一の SMTP セッションの中で複数のメール ドメインを受信者として送信 (※ 2) すると、Office 365 はどのドメインをコネクタの検証用に使用すればよいか判断できず中継が拒否されます。</p>
+<p>本記事執筆時点 (2017 年 12 月 6 日) では、複数の宛先メール ドメインが、同じコネクタのあるテナントにいずれも登録されており複数テナントにまたがっていなかったとしても中継が拒否されることをご注意ください。</p>
+<p>(※ 2) 例えば以下のように RCPT TO コマンドで複数のメール ドメインが受信者として指定される場合です。<br>MAIL FROM: <a href="mailto:user01@contoso.com">user01@contoso.com</a><br>RCPT TO: <a href="mailto:user01@adatum.com">user01@adatum.com</a><br>RCPT TO: <a href="mailto:user01@fabrikam.com">user01@fabrikam.com</a></p>
+<p>&nbsp;<br>今回のご案内は以上となります。<br>Office 365 とお客様のメール サーバーとを円滑にご連携いただく際の注意点としてお役に立てていただけますと幸いです。<br>&nbsp;<br>※本情報の内容は作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmessaging.github.io/blog/%E3%82%B3%E3%83%8D%E3%82%AF%E3%82%BF%E8%A8%AD%E5%AE%9A%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%203%20%E3%81%A4%E3%81%AE%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%20(%E9%80%81%E4%BF%A1%E5%85%83%20%20%E7%B5%84%E7%B9%94%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC)/" data-id="ckays4u7x00197wst2xdk1ci8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/EXO/" rel="tag">EXO</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/Office%20365%20%E3%81%AE%E3%83%A9%E3%82%A4%E3%82%BB%E3%83%B3%E3%82%B9%E7%AE%A1%E7%90%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Office 365 のライセンス管理
+
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/Office%20365%20%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%E3%81%AE%E5%88%B6%E5%BE%A1%E6%96%B9%E6%B3%95%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Office 365 グループの制御方法について
+</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/EXO/" rel="tag">EXO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hybrid/" rel="tag">Hybrid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/O365Identity/" rel="tag">O365Identity</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/11/">November 2012</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E4%B8%8A%E3%81%A7%E8%87%AA%E5%B7%B1%E7%BD%B2%E5%90%8D%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%E3%81%8C%E5%88%87%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9/">Exchange 2013 のメールボックス サーバー上で自己署名証明書の有効期限が切れた際の注意点
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/">Azure AD と Exchange Online 間の同期に関するエラーの事例集
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%A8%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E6%9C%AC/">Azure AD と Exchange Online の同期とトラブルシューティングの基本
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%82%92%E4%B9%97%E3%81%A3%E5%8F%96%E3%82%89%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E5%AF%BE%E5%BF%9C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">アカウントを乗っ取られた際の対応について
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Export-Office365LicenseStatus%20%E3%81%AE%E3%81%94%E7%B4%B9%E4%BB%8B/">Export-Office365LicenseStatus のご紹介
+</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 jpmessaging<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

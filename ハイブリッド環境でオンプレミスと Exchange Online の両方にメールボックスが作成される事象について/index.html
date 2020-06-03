@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ハイブリッド環境でオンプレミスと Exchange Online の両方にメールボックスが作成される事象について
+ | Japan Exchange &amp; Outlook Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは、Exchange サポートの渡辺です。今回はハイブリッド環境で同一ユーザーのメールボックスが “オンプレミス” と “Exchange Online” の両方に作成されてしまった際の対処方法についてご紹介します。 &amp;nbsp; そもそもなぜ両方にメールボックスが作成されてしまうのか 通常、オンプレミスと Exchange Online の双方にメールボックスが作成されることはありません">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ハイブリッド環境でオンプレミスと Exchange Online の両方にメールボックスが作成される事象について
+">
+<meta property="og:url" content="https://jpmessaging.github.io/blog/%E3%83%8F%E3%82%A4%E3%83%96%E3%83%AA%E3%83%83%E3%83%89%E7%92%B0%E5%A2%83%E3%81%A7%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%83%9F%E3%82%B9%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E4%B8%A1%E6%96%B9%E3%81%AB%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%E3%81%8C%E4%BD%9C%E6%88%90%E3%81%95%E3%82%8C%E3%82%8B%E4%BA%8B%E8%B1%A1%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/index.html">
+<meta property="og:site_name" content="Japan Exchange &amp; Outlook Support Blog">
+<meta property="og:description" content="こんにちは、Exchange サポートの渡辺です。今回はハイブリッド環境で同一ユーザーのメールボックスが “オンプレミス” と “Exchange Online” の両方に作成されてしまった際の対処方法についてご紹介します。 &amp;nbsp; そもそもなぜ両方にメールボックスが作成されてしまうのか 通常、オンプレミスと Exchange Online の双方にメールボックスが作成されることはありません">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-07-09T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-03T03:05:04.082Z">
+<meta property="article:author" content="jpmessaging">
+<meta property="article:tag" content="Hybrid">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Japan Exchange &amp; Outlook Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Japan Exchange &amp; Outlook Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">日本マイクロソフト Exchange &amp; Outlook サポート チームのブログです</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmessaging.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ハイブリッド環境でオンプレミスと Exchange Online の両方にメールボックスが作成される事象について" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/%E3%83%8F%E3%82%A4%E3%83%96%E3%83%AA%E3%83%83%E3%83%89%E7%92%B0%E5%A2%83%E3%81%A7%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%83%9F%E3%82%B9%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E4%B8%A1%E6%96%B9%E3%81%AB%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%E3%81%8C%E4%BD%9C%E6%88%90%E3%81%95%E3%82%8C%E3%82%8B%E4%BA%8B%E8%B1%A1%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="article-date">
+  <time datetime="2017-07-09T15:00:00.000Z" itemprop="datePublished">2017-07-10</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ハイブリッド環境でオンプレミスと Exchange Online の両方にメールボックスが作成される事象について
+
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="/blog/%E3%83%8F%E3%82%A4%E3%83%96%E3%83%AA%E3%83%83%E3%83%89%E7%92%B0%E5%A2%83%E3%81%A7%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%83%9F%E3%82%B9%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E4%B8%A1%E6%96%B9%E3%81%AB%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%E3%81%8C%E4%BD%9C%E6%88%90%E3%81%95%E3%82%8C%E3%82%8B%E4%BA%8B%E8%B1%A1%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" class="article-date-single">    
+    
+    <time datetime="2017-07-09T15:00:00.000Z" itemprop="dateUpdated">2017-07-10</time>
+    
+</a>              
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは、Exchange サポートの渡辺です。<br>今回はハイブリッド環境で同一ユーザーのメールボックスが “オンプレミス” と “Exchange Online” の両方に作成されてしまった際の対処方法についてご紹介します。</p>
+<p>&nbsp;</p>
+<h3><u><strong>そもそもなぜ両方にメールボックスが作成されてしまうのか</strong></u></h3>
+通常、オンプレミスと Exchange Online の双方にメールボックスが作成されることはありませんが、オンプレミスから Exchange Online のメールボックス移動に際して発生することが、過去のお問合せとして報告されています。
+&nbsp;
+具体的には、Exchange Online へのメールボックスの移動が終わり、その後のメールボックス移動の最終処理でオンプレミス側ではメールボックスからリモート メールボックスへの変換が行われます。
+それに伴ってオンプレミス側のディレクトリ情報も更新される動作となっていますが、この際に何らかの要因でディレクトリ情報の更新がスキップされる場合があり、この結果オンプレミスがのメールボックスが残ってしまい、両方にメールボックスが存在する状態が発生します。
+&nbsp;
+この際、以下のように移動要求自体は CompletedWithWarnings のステータスとなっており、Error 部分には移行の最終処理でクリーンアップ処理がスキップされたため、移動元 (オンプレミス) のメールボックスが残っている可能性がある旨が記録されます。
+なお、エラーは発生していますが、メールボックスの移動 (データの移動) 自体はステータス上 Completed で完了している状態となり、前述のとおり Exchange Online への移動自体は完了しているため、メールデータも移動できております。
+&nbsp;
+**********************
+Status                           : CompletedWithWarnings
+StatusSummary                 : Failed
+State                            : Completed
+Error                            : <font color="red">MigrationMRSPermanentException: <span style="background-color: #ffff00">Warning: The mailbox was already moved but failed to</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;update the job state during the final stages of the move. It is possible that the s
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ource mailbox could still be alive since post move cleanup operations were deliberat
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ely not executed.</font>
+Report                           : &lt;省略&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2017/06/08 2:10:38 [TY1PR0301MB1023] Move has completed and final cleanup has started.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2017/06/08 2:10:39 [TY1PR0301MB1023] Target mailbox 'contoso.onmicrosoft.com\121042ca-c198-4fe1-8d
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;25-0b1aefa7e1b5 (Primary)' was successfully reset after the move.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2017/06/08 2:10:40 [TY1PR0301MB1023] Waiting for mailbox changes to replicate.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2017/06/08 2:11:17 [TY1PR0301MB1023] Request is complete.
+**********************
+&nbsp;
+他にも、以下のような作業を実施した場合には、オンプレミス側でメールボックスが再作成されてしまう可能性がありますのでご注意ください。
+
+<p>・ オンプレミス側でユーザーのディレクトリ情報を、オンプレミスにメールボックスが存在していた時の情報に復元してしまった<br>・ Exchange Online にメールボックスがある状態で、オンプレミスで Enable-Mailbox を実行してしまった</p>
+<p>&nbsp;</p>
+<h3><u><strong>両方にメールボックスが作成されてしまった時の動作について</strong></u></h3>
+まず、この場合はオンプレミスと Exchange Online のメールボックス両方にログインすることが可能です。
+Outlook の場合、Autodiscover の構成次第とはなりますが、基本的にどちらかのメールボックスの情報しか接続できないため、ご注意ください。
+どうしてももう一つのメールボックスに接続する必要がある場合は、OWA (OotW) で接続します。
+なお、上述のとおりメールボックス データの移行は正常に行えているため、Exchange Online のメールボックスで以前に受信したメール等を確認することもできます。
+
+<p>次に気になるのが、新しいメッセージはどちらのメールボックスに配信されているのかという点です。<br>答えは、送信者が誰かによって違いがあり、基本的には以下の動作になっています。</p>
+<p>   ・ オンプレミスのユーザーから送信されたメール : オンプレミス側のメールボックスに配信される<br>   ・ Exchange Online のユーザーから送信されたメール : Exchange Online 側のメールボックスに配信される<br>   ・ 外部から送信されたメッセージ : 最初に経由する環境側のメールボックスに配信される<br>      (外部からのメールを ExO が最初に受信するメールフローの場合は ExO のメールボックスに、オンプレ側が受信する場合はオンプレのメールボックスに配信される)</p>
+<p>この状態では上記の動作となっているため、メールボックスの移動後に配信されたメッセージが、オンプレミスまたは、Exchange Online のどちらかにしか存在しない場合があるので注意が必要です。</p>
+<p>&nbsp;<br><u><strong><h3>両方にメールボックスが作成されてしまった時の対処方法</strong></u></h3><br>メールボックスがオンプレミスと Exchange Online の両方に作成されてしまった場合の対処方法としては、オンプレミスのメールボックスを削除するか、Exchange Online のメールボックスを削除するかの二択となります。<br>この状況が発生するシナリオとしては、上述のとおり基本的に Exchange Online へ移動を試みている際に、オンプレミスのメールボックスが削除されなかった” というパターンが多いので、ここではオンプレミスのメールボックスを削除する方法をご案内します。<br>&nbsp;<br>基本的な流れとしては以下の通りですが、作業中 (2,3 の作業中) は対象のメールボックスに対するメッセージが配信されず、送信者に配信不能通知が応答される可能性がありますのでご注意ください。<br>&nbsp;<br><strong><big>0. オンプレミスのメールボックスに届くメールを Exchange Online に転送するように構成する</p>
+<ol>
+<li>削除対象のメールボックス内のメール アイテムを PST にエクスポートする</li>
+<li>ディレクトリ同期の停止</li>
+<li>メールボックスの削除 (無効化)</li>
+<li>ディレクトリ同期の再開と、手順 1 でエクスポートした情報のインポート</strong></big><br>&nbsp;<br>以下、各手順の詳細です。</li>
+</ol>
+<p>&nbsp;<br><u><strong><big>0. オンプレミスのメールボックスに届くメールを Exchange Online に転送するように構成する</strong></u></big><br>この後の手順では、オンプレミスのメールボックス内のアイテムをエクスポートして、オンプレミス側を削除する手順となっているのですが、エクスポートしてから削除されるまでに受信したアイテムについては、Exchange Online に引き継ぐことができなくなってしまいます。<br>そのため、事前にオンプレミスのメールボックスに届いたメールは Exchange Online に転送されるように構成します。<br>転送する方法は様々あり、仕分けルールやトランスポート ルール、メールボックスの配信オプションなどが使用できます。<br>配信オプションを利用する場合は、オンプレミス側で以下のコマンドを実行することで、Exchange Online 側のメールボックスへの転送を設定できます。<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Set-Mailbox -Identity &lt;対象のメールボックス&gt; -ForwardingSmtpAddress &lt;ExO のメールボックス固有 (onmicrosoft.com ドメイン等) のメール アドレス&gt;<br>&nbsp;<br>ここでポイントとなるのは、転送先が Exchange Online 固有のメールアドレスである必要があるという点です。<br>Exchange Online のメールボックスの場合は基本的に onmicrosoft.com ドメインなど Exchange Online 側にしか設定されていないメールアドレスがあるため転送するという方法が利用できますが、逆にオンプレミス側のメールボックスを残したいというシナリオの場合、オンプレミス側固有のメールアドレスが設定されているケースは少ないかもしれません。<br>&nbsp;<br>この場合は転送するという方法が利用できないため、必要に応じて Exchange Online 側で新しいメールを受信しない  (送信者には NDR を応答する) ように構成する必要があります。<br>こちらも方法は様々ですが、例えば Exchange Online 側のメールボックスが受信できるサイズの上限を 0 Byte とするのも 1 つの方法です。<br>※ ディレクトリ同期環境でも Exchange Online 側で以下のコマンドを実行して Exchange Onlinega 側のメールボックスだけに設定を行うことが可能です。<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Set-Mailbox -Identity &lt;対象のメールボックス&gt; -MaxReceiveSize 0B<br>&nbsp;<br>もちろんオンプレミス固有のメールアドレスがある場合は、先に説明した方法と同じようにオンプレミスに対して転送する設定をいただければ問題ありません。</p>
+<p>&nbsp;<br><u><strong><big>1. 削除対象のメールボックス内のメール アイテムを PST にエクスポートする</strong></u></big><br>削除を行うオンプレミスのメールボックス内に含まれるデータを PST ファイルにエクスポートします。<br>PST ファイルにエクスポートする方法はいくつかありますが、環境によって実施できないものなどがありますのでお気をつけください。<br>この手順はメールボックス移動を行った後に、オンプレミスのメールボックスに配信されたメッセージを取得するためのものですので、特に必要なデータが無い場合は、本手順を実施いただかなくても問題はありません。</p>
+<p>&nbsp;<br>Outlook を使用して PST ファイルにエクスポートする<br>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^<br>上述の通り、構成によってはオンプレミスのメールボックスに接続できない場合がありますので注意が必要です。<br>手順は以下の公開情報をご確認ください。<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Title : メール、連絡先、予定表を Outlook の .pst ファイルにエクスポートまたはバックアップする<br>&nbsp;&nbsp;&nbsp;&nbsp;URL : <a href="https://support.office.com/ja-jp/article/Export-or-backup-email-contacts-and-calendar-to-an-Outlook-pst-file-14252b52-3075-4e9b-be4e-ff9ef1068f91" target="_blank" rel="noopener">https://support.office.com/ja-jp/article/Export-or-backup-email-contacts-and-calendar-to-an-Outlook-pst-file-14252b52-3075-4e9b-be4e-ff9ef1068f91</a></p>
+<p>&nbsp;<br>メールボックスのエクスポート要求を作成して、エクスポートする<br>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^<br>管理者によって実施する手順となります。<br>手順等は以下の公開情報をご確認ください。<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Title : メールボックスのインポート要求とエクスポート要求<br>&nbsp;&nbsp;&nbsp;&nbsp;URL : <a href="https://technet.microsoft.com/ja-jp/library/ee633455(v=exchg.150).aspx" target="_blank" rel="noopener">https://technet.microsoft.com/ja-jp/library/ee633455(v=exchg.150).aspx</a></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Title : メールボックスのエクスポート要求を作成する<br>&nbsp;&nbsp;&nbsp;&nbsp;URL : <a href="https://technet.microsoft.com/ja-jp/library/ff459227(v=exchg.141).aspx" target="_blank" rel="noopener">https://technet.microsoft.com/ja-jp/library/ff459227(v=exchg.141).aspx</a><br>&nbsp;&nbsp;&nbsp;&nbsp;※ Exchange 2010 の公開情報とはなりますが、Exchange 2013 や 2016 でも同様です。</p>
+<p>&nbsp;<br>インプレース電子情報開示を使用して、エクスポートする<br>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^<br>こちらも管理者によって実施する手順となります。<br>手順等は以下の公開情報を参考にしていただければと思いますが、バージョンによって手順が異なるのでご注意ください。<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Title : インプレース電子情報開示 (eDiscovery)<br>&nbsp;&nbsp;&nbsp;&nbsp;URL : <a href="https://technet.microsoft.com/ja-jp/library/dd298021(v=exchg.150).aspx" target="_blank" rel="noopener">https://technet.microsoft.com/ja-jp/library/dd298021(v=exchg.150).aspx</a></p>
+<p>&nbsp;<br><u><strong><big>2. ディレクトリ同期の停止</strong></u></big><br>後続の手順でオンプレミスのメールボックスを削除することになりますが、作業途中でディレクトリ同期が行われた場合に、場合によっては Exchange Online のメールボックスまで削除されてしまう場合があります。<br>基本的には再接続されるため問題はありませんが、可能であればディレクトリ同期を一時的に停止して作業を実施いただければと思います。<br>※ 理論的にはディレクトリ同期の間隔 (既定では 30 分) 内で作業 (後述の手順 3 の 2,3,4 の手順) を実施いただければ影響はありませんので、必須ではありません。<br>&nbsp;<br>AAD Connect を利用している環境では、ディレクトリ同期を実行しているサーバーで Powerhsell を起動し、以下のコマンドを実行することで、定期的に実行されるディレクトリ同期を停止することができます。<br>&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Set-ADSyncScheduler -SyncCycleEnabled $False</p>
+<p>&nbsp;<br>※補足<br>削除対象のメールボックスで訴訟ホールドが有効な場合は対象のメールボックスを削除できないため、事前にホールドを無効化する必要があります。<br>また、訴訟ホールドを無効化しても反映までに時間を要する (最大 60 分) ため、ディレクトリ同期を停止する前に事前に実施することをお勧めします。<br>なお、訴訟ホールドの有効/無効の設定はオンプレミスと Exchange Online で独立しているので、オンプレミス側で削除対象のメールボックスの設定を変更しても Exchange Online のメールボックスでは訴訟ホールドが有効なままとなりますのでご安心ください。<br>訴訟ホールドを無効にする場合は、以下のコマンドを実行します。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Set-Mailbox -Identity &lt;対象のメールボックス&gt; -LitigationHoldEnabled $False</p>
+<p>&nbsp;<br><u><strong><big>3. メールボックスの削除 (無効化)</strong></u></big><br>不要なメールボックスを削除 (無効化) します。<br>&nbsp;</p>
+<ol>
+<li>事前に EXO、オンプレ双方にて以下のコマンド実行し、現在の設定内容 (特に EmailAddresses の値) を控えます。<br>後述の手順で使用しますので、出力結果はテキスト ファイル等にコピーしておきます。</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Get-Mailbox &lt;対象のメールボックス&gt; | fl</p>
+<p>※ 設定されている内容が多いパラメーターは出力が省略されてしまう場合がありますので、事前に以下のコマンドを実行してください。<br>　 これによって、出力結果が省略されなくなります。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;$FormatEnumerationLimit=-1<br>&nbsp;<br>2. オンプレミスで Exchange 管理シェルを起動し、以下のコマンドを実行して、オンプレミスのメールボックスを無効化します。<br>   これにより、対象のユーザーに付与されている Exchange 属性が削除されます。<br>   実行後は、メールボックスが存在している AD サイト内すべての DC に無効化された情報が複製されていることをご確認ください。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Disable-Mailbox -Identity &lt;対象のメールボックス&gt;<br>&nbsp;<br>3. 続いて以下のコマンドを実行して、リモート メールボックスを有効化します。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Enable-RemoteMailbox -Identity &lt;メールボックス&gt; -RemoteRoutingAddress &amp;ltmail.onmicrosoft.com ドメインのアドレス&gt;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;例 :<br>&nbsp;&nbsp;&nbsp;&nbsp;Enable-RemoteMailbox -Identity user01 -RemoteRoutingAddress <a href="mailto:user01@contoso.mail.onmicrosoft.com">user01@contoso.mail.onmicrosoft.com</a><br>&nbsp;<br>※ 補足<br>設定にも依存いたしますが、一般的には &lt;テナント&gt;.mail.onmicrosoft.com ドメインがオンプレミス/Exchange Online 間のハイブリッド関連機能 (空き時間情報の確認やメール転送等) で使用される SMTP ドメインとなるため、こちらを RemoteRoutingAddress として設定します。<br>mail.onmicrosoft.com を付与しない構成となっている場合は、代わりにハイブリッド関連機能で使用するドメインのアドレスを付与いただければと思います。</p>
+<p>&nbsp;<br><u><strong><big>4. ディレクトリ同期の再開と、手順 1 でエクスポートした情報のインポート</strong></u></big><br>ディレクトリ同期を再開します。<br>&nbsp;</p>
+<ol>
+<li>ディレクトリ同期実行サーバーで以下のコマンドを実行し、スケジュールによる同期を有効化します。</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Set-ADSyncScheduler -SyncCycleEnabled $True<br>&nbsp;<br>2. 続いて以下のコマンドを実行し、手動で同期を開始します。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Start-ADSyncSyncCycle<br>&nbsp;<br>3. ディレクトリ同期を再開後、組織外やオンプレミスからのメッセージ等が正常に Exchange Online 側のメールボックスに配信されるかご確認ください。<br>問題ないようでしたら、手順 1 でエクスポートした PST ファイルを基に、Exchange Online のメールボックスにインポートを実施します。<br>&nbsp;<br>手順はエクスポート時と同様に、Outlook から実施する方法と管理者で実施する方法があります。<br>詳細は以下の公開情報をご確認ください。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Title : Outlook .pst ファイルからメール、連絡先、予定表をインポートする<br>&nbsp;&nbsp;&nbsp;&nbsp;URL : <a href="https://support.office.com/ja-jp/article/Import-email-contacts-and-calendar-from-an-Outlook-pst-file-431a8e9a-f99f-4d5f-ae48-ded54b3440ac" target="_blank" rel="noopener">https://support.office.com/ja-jp/article/Import-email-contacts-and-calendar-from-an-Outlook-pst-file-431a8e9a-f99f-4d5f-ae48-ded54b3440ac</a></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;Title : ネットワーク アップロードを使用して PST ファイルを Office 365 にインストールする<br>&nbsp;&nbsp;&nbsp;&nbsp;URL : <a href="https://support.office.com/ja-jp/article/Use-network-upload-to-import-PST-files-to-Office-365-103f940c-0468-4e1a-b527-cc8ad13a5ea6" target="_blank" rel="noopener">https://support.office.com/ja-jp/article/Use-network-upload-to-import-PST-files-to-Office-365-103f940c-0468-4e1a-b527-cc8ad13a5ea6</a><br>&nbsp;<br>手順は以上となります。<br>それほど頻繁に発生する事象ではありませんが、もし発生してしまった場合は、こちらの対処方法を参考としていただけますと幸いです。</p>
+<p>&nbsp;<br>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmessaging.github.io/blog/%E3%83%8F%E3%82%A4%E3%83%96%E3%83%AA%E3%83%83%E3%83%89%E7%92%B0%E5%A2%83%E3%81%A7%E3%82%AA%E3%83%B3%E3%83%97%E3%83%AC%E3%83%9F%E3%82%B9%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E4%B8%A1%E6%96%B9%E3%81%AB%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%E3%81%8C%E4%BD%9C%E6%88%90%E3%81%95%E3%82%8C%E3%82%8B%E4%BA%8B%E8%B1%A1%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" data-id="ckays4u7z001h7wstahqq9nzg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Hybrid/" rel="tag">Hybrid</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/Office%20365%20%E3%81%AE%E8%A8%80%E8%AA%9E%E8%A8%AD%E5%AE%9A%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Office 365 の言語設定について
+
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/New-EdgeSubscription%20%E5%AE%9F%E8%A1%8C%E6%99%82%E3%81%AB%E3%82%B9%E3%83%9E%E3%83%BC%E3%83%88%20%E3%82%AB%E3%83%BC%E3%83%89%E8%AA%8D%E8%A8%BC%E3%81%8C%E6%B1%82%E3%82%81%E3%82%89%E3%82%8C%E3%82%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">New-EdgeSubscription 実行時にスマート カード認証が求められる
+</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/EXO/" rel="tag">EXO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hybrid/" rel="tag">Hybrid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/O365Identity/" rel="tag">O365Identity</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/11/">November 2012</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E4%B8%8A%E3%81%A7%E8%87%AA%E5%B7%B1%E7%BD%B2%E5%90%8D%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%E3%81%8C%E5%88%87%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9/">Exchange 2013 のメールボックス サーバー上で自己署名証明書の有効期限が切れた際の注意点
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/">Azure AD と Exchange Online 間の同期に関するエラーの事例集
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%A8%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E6%9C%AC/">Azure AD と Exchange Online の同期とトラブルシューティングの基本
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%82%92%E4%B9%97%E3%81%A3%E5%8F%96%E3%82%89%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E5%AF%BE%E5%BF%9C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">アカウントを乗っ取られた際の対応について
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Export-Office365LicenseStatus%20%E3%81%AE%E3%81%94%E7%B4%B9%E4%BB%8B/">Export-Office365LicenseStatus のご紹介
+</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 jpmessaging<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

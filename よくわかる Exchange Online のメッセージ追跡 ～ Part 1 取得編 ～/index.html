@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>よくわかる Exchange Online のメッセージ追跡 ～ Part 1 取得編 ～
+ | Japan Exchange &amp; Outlook Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさんこんにちは、Exchange Server サポートの 杉山 卓弥 です。Exchange Online で送受信されているメッセージを調査する場合、管理者にてメッセージ追跡を実行する機会は非常に多いかと思います。そこで、メッセージ追跡に役立つ情報を順次 Exchange Server サポートよりご紹介していきます。Part 1 では、Exchange Online のメッセージ追跡の実">
+<meta property="og:type" content="article">
+<meta property="og:title" content="よくわかる Exchange Online のメッセージ追跡 ～ Part 1 取得編 ～
+">
+<meta property="og:url" content="https://jpmessaging.github.io/blog/%E3%82%88%E3%81%8F%E3%82%8F%E3%81%8B%E3%82%8B%20Exchange%20Online%20%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E8%BF%BD%E8%B7%A1%20%EF%BD%9E%20Part%201%20%E5%8F%96%E5%BE%97%E7%B7%A8%20%EF%BD%9E/index.html">
+<meta property="og:site_name" content="Japan Exchange &amp; Outlook Support Blog">
+<meta property="og:description" content="みなさんこんにちは、Exchange Server サポートの 杉山 卓弥 です。Exchange Online で送受信されているメッセージを調査する場合、管理者にてメッセージ追跡を実行する機会は非常に多いかと思います。そこで、メッセージ追跡に役立つ情報を順次 Exchange Server サポートよりご紹介していきます。Part 1 では、Exchange Online のメッセージ追跡の実">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2016-02-22T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-03T03:05:04.076Z">
+<meta property="article:author" content="jpmessaging">
+<meta property="article:tag" content="EXO">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Japan Exchange &amp; Outlook Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Japan Exchange &amp; Outlook Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">日本マイクロソフト Exchange &amp; Outlook サポート チームのブログです</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmessaging.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-よくわかる Exchange Online のメッセージ追跡 ～ Part 1 取得編 ～" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/%E3%82%88%E3%81%8F%E3%82%8F%E3%81%8B%E3%82%8B%20Exchange%20Online%20%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E8%BF%BD%E8%B7%A1%20%EF%BD%9E%20Part%201%20%E5%8F%96%E5%BE%97%E7%B7%A8%20%EF%BD%9E/" class="article-date">
+  <time datetime="2016-02-22T15:00:00.000Z" itemprop="datePublished">2016-02-23</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      よくわかる Exchange Online のメッセージ追跡 ～ Part 1 取得編 ～
+
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="/blog/%E3%82%88%E3%81%8F%E3%82%8F%E3%81%8B%E3%82%8B%20Exchange%20Online%20%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E8%BF%BD%E8%B7%A1%20%EF%BD%9E%20Part%201%20%E5%8F%96%E5%BE%97%E7%B7%A8%20%EF%BD%9E/" class="article-date-single">    
+    
+    <time datetime="2016-02-22T15:00:00.000Z" itemprop="dateUpdated">2016-02-23</time>
+    
+</a>              
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさんこんにちは、Exchange Server サポートの 杉山 卓弥 です。Exchange Online で送受信されているメッセージを調査する場合、管理者にてメッセージ追跡を実行する機会は非常に多いかと思います。そこで、メッセージ追跡に役立つ情報を順次 Exchange Server サポートよりご紹介していきます。Part 1 では、Exchange Online のメッセージ追跡の実行方法、取得方法について使用頻度が高い順にご説明していきます。</p>
+<p><span style="color: #3366ff">Exchange Server サポートからのお願い</span><br><span style="color: #3366ff"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>****</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span><br><span style="color: #3366ff">弊社サポートにメッセージ配信に関するお問い合わせをいただく際、メッセージ追跡ログをあらかじめ送付いただくことで、すぐに調査を開始することができます。また、事象の早期解決に結びつくことも多くございますので、事前の HistoricalSearch (詳細版) の取得にご協力をいただけますようお願いいたします。</span><br><span style="color: #3366ff"><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>****</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></span></p>
+<p>&lt;取得方法&gt;<br>A. HistoricalSearch (詳細版)<br>B. MessageTrace (詳細版)<br>C. MessageTrace (要約版)<br>D. HistoricalSearch (要約版)</p>
+<p>&lt;事前準備&gt;<br>Windows Powershell から Exchange Online に接続します。</p>
+<p>Title: リモート PowerShell による Exchange への接続<br>URL: <a target="_blank" href="https://technet.microsoft.com/library/jj984289(v=exchg.160).aspx" rel="noopener">https://technet.microsoft.com/library/jj984289(v=exchg.160).aspx</a></p>
+<p>==================<br>A. HistoricalSearch (詳細版)<br>==================<br>使用頻度 : ★★★<br>詳細度 : ★★★<br>実行時間 : ★☆☆ (長い)<br>取得可能期間 : ★★★ (過去 90 日)</p>
+<p>特徴 :<br>過去 7 日以上経過した単一または複数のメッセージをイベント単位で最も詳細に調査する場合に有効です。弊社サポートで特定のメッセージを調査する際にもご依頼をしている方法です。</p>
+<p>取得方法 :</p>
+<ol>
+<li>メッセージ追跡 (HistoricalSearch) を開始します。</li>
+</ol>
+<p>&lt;送信者、受信者を指定して実行する場合&gt;<br>Start-HistoricalSearch -ReportTitle &lt;任意の実行名&gt; -StartDate yyyy/mm/dd -EndDate yyyy/mm/dd -SenderAddress &lt;送信者メールアドレス&gt; -RecipientAddress &lt;受信者メールアドレス&gt; -ReportType MessageTraceDetail -NotifyAddress &lt;通知メールアドレス&gt;</p>
+<p>&lt;メッセージ ID を指定して実行する場合&gt;<br>Start-HistoricalSearch -ReportTitle &lt;任意の実行名&gt; -StartDate yyyy/mm/dd -EndDate yyyy/mm/dd -MessageID “&lt;メッセージ ID&gt;” -ReportType MessageTraceDetail -NotifyAddress &lt;通知メールアドレス&gt;</p>
+<p><span style="color: #ff0000"># パラメーターの StartDate および EndDate は協定世界時 (UTC) を基準としています。日本標準時 (JST) での受信時刻とは異なりますので、例えば、2016/02/22 (JST) に受信した場合は、StartDate を 2016/02/21、EndDate を 2016/02/23 と指定することをお勧めします。</span></p>
+<ol start="2">
+<li>実行後に表示された JobId を控えておき、以下のコマンドを実行して Status が Done となっていることを確認します。<br>Status が Done となるまでには数時間かかる場合があるので、以下のコマンドは Start-HistoricalSearch でのメッセージ追跡開始後、しばらく時間が経ってから実行することをお勧めします。</li>
+</ol>
+<p>Get-HistoricalSearch -JobId “xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx” | FL</p>
+<ol start="3">
+<li>該当の JobId の Status が Done となったら、FileUrl に記載されている URL より CSV 形式のメッセージ追跡ログをダウンロードします。<br>URL アクセス時に証明書の警告画面が表示された場合には、[キャンセル] を押して処理を進めます。</li>
+</ol>
+<p>注意点 :</p>
+<p>1) 1 日経過しても Status が Done とならない場合には、再度新しく HistoricalSearch を作成、開始いただけますようお願いいたします。<br>2) 手順 3 にて CSV 形式のメッセージ追跡ログをダウンロードできる回数には制限があります。2018年3月時点では ダウンロード回数が20 回を超えると以下のエラーとなります。<br>—– ここから —-<br>503<br>サーバーがビジー状態です<br>サービスはビジー状態です。しばらくしてからもう一度やり直してください。<br>—– ここまで —-<br>エラーとなる場合は、再度手順 1 からメッセージ追跡の手順を実施ください。</p>
+<p>&nbsp;</p>
+<p>================<br>B. MessageTrace (詳細版)<br>================<br>使用頻度 : ★★☆<br>詳細度 : ★★☆<br>実行時間 : ★★★ (短い)<br>取得可能期間 : ★☆☆ (過去 7 日)</p>
+<p>特徴 :<br>単一または複数のメッセージをイベント単位で調査する場合に有効です。管理者にてコネクタの経由状況やトランスポート ルールの適用状況を確認することができます。</p>
+<p>取得方法 :<br>&lt;送信者、受信者を指定して実行する場合&gt;<br>Get-MessageTrace -StartDate yyyy/mm/dd -EndDate yyyy/mm/dd -SenderAddress &lt;送信者メールアドレス&gt; -RecipientAddress &lt;受信者メールアドレス&gt; | Get-MessageTraceDetail | Export-Csv -Path C:&amp;lt;フォルダー名&gt;&amp;lt;ファイル名&gt;.csv -Encoding UTF8 -NoTypeInformation</p>
+<p>&lt;メッセージ ID を指定して実行する場合&gt;<br>Get-MessageTrace -StartDate yyyy/mm/dd -EndDate yyyy/mm/dd -MessageId “&lt;メッセージ ID&gt;” | Get-MessageTraceDetail | Export-Csv -Path C:&amp;lt;フォルダー名&gt;&amp;lt;ファイル名&gt;.csv -Encoding UTF8 -NoTypeInformation</p>
+<p>注意点 :<br>パラメーターの StartDate および EndDate は協定世界時 (UTC) を基準としています。日本標準時 (JST) での受信時刻とは異なりますので、例えば、2016/02/22 (JST) に受信した場合は、StartDate を 2016/02/21、EndDate を 2016/02/23 と指定することをお勧めします。</p>
+<p>================<br>C. MessageTrace (要約版)<br>================<br>使用頻度 : ★★☆<br>詳細度 : ★☆☆<br>実行時間 : ★★★ (短い)<br>取得可能期間 : ★☆☆ (過去 7 日)</p>
+<p>特徴 :<br>多数のメッセージの最終配信ステータスや送信元 IP などを調査する場合に有効な方法です。管理者にてメッセージの配送状況を一覧形式で確認することができます。</p>
+<p>取得方法 :<br>&lt;送信者、受信者を指定して実行する場合&gt;<br>Get-MessageTrace -StartDate yyyy/mm/dd -EndDate yyyy/mm/dd -SenderAddress &lt;送信者メールアドレス&gt; -RecipientAddress &lt;受信者メールアドレス&gt; | Export-Csv -Path C:&amp;lt;フォルダー名&gt;&amp;lt;ファイル名&gt;.csv -Encoding UTF8 -NoTypeInformation</p>
+<p>&lt;メッセージ ID を指定して実行する場合&gt;<br>Get-MessageTrace -StartDate yyyy/mm/dd -EndDate yyyy/mm/dd -MessageId “&lt;メッセージ ID&gt;” | Export-Csv -Path C:&amp;lt;フォルダー名&gt;&amp;lt;ファイル名&gt;.csv -Encoding UTF8 -NoTypeInformation</p>
+<p>注意点 :<br>パラメーターの StartDate および EndDate は協定世界時 (UTC) を基準としています。日本標準時 (JST) での受信時刻とは異なりますので、例えば、2016/02/22 (JST) に受信した場合は、StartDate を 2016/02/21、EndDate を 2016/02/23 と指定することをお勧めします。</p>
+<p>================<br>D. HistoricalSearch (要約版)<br>==================<br>使用頻度 : ★☆☆<br>詳細度 : ★☆☆<br>実行時間 : ★☆☆ (長い)<br>取得可能期間 : ★★★ (過去 90 日)</p>
+<p>特徴 :<br>過去 7 日以上経過した多数のメッセージのイベント概要や送信元 IP を調査する場合に有効な方法です。管理者にてメッセージの配送状況を一覧形式で確認することができます。</p>
+<p>取得方法 :</p>
+<ol>
+<li>メッセージ追跡 (HistoricalSearch) を開始します。</li>
+</ol>
+<p>&lt;送信者、受信者を指定して実行する場合&gt;<br>Start-HistoricalSearch -ReportTitle &lt;任意の実行名&gt; -StartDate yyyy/mm/dd -EndDate yyyy/mm/dd -SenderAddress &lt;送信者メールアドレス&gt; -RecipientAddress &lt;受信者メールアドレス&gt; -ReportType MessageTrace  -NotifyAddress &lt;通知メールアドレス&gt;</p>
+<p>&lt;メッセージ ID を指定して実行する場合&gt;<br>Start-HistoricalSearch -ReportTitle &lt;任意の実行名&gt; -StartDate yyyy/mm/dd -EndDate yyyy/mm/dd -MessageID “&lt;メッセージ ID&gt;” -ReportType MessageTrace -NotifyAddress &lt;通知メールアドレス&gt;</p>
+<p><span style="color: #ff0000"># パラメーターの StartDate および EndDate は協定世界時 (UTC) を基準としています。日本標準時 (JST) での受信時刻とは異なりますので、例えば、2016/02/22 (JST) に受信した場合は、StartDate を 2016/02/21、EndDate を 2016/02/23 と指定することをお勧めします。</span></p>
+<ol start="2">
+<li>実行後に表示された JobId を控えておき、以下のコマンドを実行して Status が Done となっていることを確認します。<br>Status が Done となるまでには数時間かかる場合があるので、以下のコマンドは Start-HistoricalSearch でのメッセージ追跡開始後、しばらく時間が経ってから実行することをお勧めします。</li>
+</ol>
+<p>Get-HistoricalSearch -JobId “xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx” | FL</p>
+<ol start="3">
+<li>該当の JobId の Status が Done となったら、FileUrl に記載されている URL より CSV 形式のメッセージ追跡ログをダウンロードします。<br>URL アクセス時に証明書の警告画面が表示された場合には、[キャンセル] を押して処理を進めます。</li>
+</ol>
+<p>注意点 :</p>
+<p>1) 1 日経過しても Status が Done とならない場合には、再度新しく HistoricalSearch を作成、開始いただけますようお願いいたします。<br>2) 手順 3 にて CSV 形式のメッセージ追跡ログをダウンロードできる回数には制限があります。2018年3月時点では ダウンロード回数が20 回を超えると以下のエラーとなります。<br>—– ここから —-<br>503<br>サーバーがビジー状態です<br>サービスはビジー状態です。しばらくしてからもう一度やり直してください。<br>—– ここまで —-<br>エラーとなる場合は、再度手順 1 からメッセージ追跡の手順を実施ください。</p>
+<p>&nbsp;</p>
+<p>&lt;参考リンク&gt;<br>Title: メッセージの追跡を実行し、結果を表示する<br>URL: <a target="_blank" href="https://technet.microsoft.com/ja-jp/library/jj200712(v=exchg.160).aspx" rel="noopener">https://technet.microsoft.com/ja-jp/library/jj200712(v=exchg.160).aspx</a></p>
+<p>Title: Start-HistoricalSearch<br>URL: <a target="_blank" href="https://technet.microsoft.com/ja-jp/library/dn621132(v=exchg.160).aspx" rel="noopener">https://technet.microsoft.com/ja-jp/library/dn621132(v=exchg.160).aspx</a></p>
+<p>Title: Get-MessageTrace<br>URL: <a target="_blank" href="https://technet.microsoft.com/ja-jp/library/jj200704(v=exchg.160).aspx" rel="noopener">https://technet.microsoft.com/ja-jp/library/jj200704(v=exchg.160).aspx</a></p>
+<p>Title: Get-MessageTraceDetail<br>URL: <a target="_blank" href="https://technet.microsoft.com/ja-jp/library/jj200681(v=exchg.160).aspx" rel="noopener">https://technet.microsoft.com/ja-jp/library/jj200681(v=exchg.160).aspx</a></p>
+<hr>
+<p>本記事は 2016 年 2 月 22 日時点で執筆されたものであり、ご紹介したコマンドの動作、機能は今後変更される場合がございます。</p>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmessaging.github.io/blog/%E3%82%88%E3%81%8F%E3%82%8F%E3%81%8B%E3%82%8B%20Exchange%20Online%20%E3%81%AE%E3%83%A1%E3%83%83%E3%82%BB%E3%83%BC%E3%82%B8%E8%BF%BD%E8%B7%A1%20%EF%BD%9E%20Part%201%20%E5%8F%96%E5%BE%97%E7%B7%A8%20%EF%BD%9E/" data-id="ckays4u7v00157wst1x6a7kes" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/EXO/" rel="tag">EXO</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/%E3%83%88%E3%83%A9%E3%83%B3%E3%82%B6%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%20%E3%83%AD%E3%82%B0%E3%81%8C%E5%89%8A%E9%99%A4%E3%81%95%E3%82%8C%E3%81%9A%E3%81%AB%E3%83%87%E3%82%A3%E3%82%B9%E3%82%AF%E9%A0%98%E5%9F%9F%E3%81%8C%E5%9C%A7%E8%BF%AB%E3%81%95%E3%82%8C%E3%81%9F%E3%81%A8%E3%81%8D%E3%81%AE%E5%AF%BE%E5%87%A6%E6%96%B9%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          トランザクション ログが削除されずにディスク領域が圧迫されたときの対処方法
+
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/Exchange%202013%20%E3%82%92%E5%BC%B7%E5%88%B6%E7%9A%84%E3%81%AB%E3%82%A2%E3%83%B3%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%99%E3%82%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Exchange 2013 を強制的にアンインストールする
+</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/EXO/" rel="tag">EXO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hybrid/" rel="tag">Hybrid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/O365Identity/" rel="tag">O365Identity</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/11/">November 2012</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E4%B8%8A%E3%81%A7%E8%87%AA%E5%B7%B1%E7%BD%B2%E5%90%8D%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%E3%81%8C%E5%88%87%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9/">Exchange 2013 のメールボックス サーバー上で自己署名証明書の有効期限が切れた際の注意点
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/">Azure AD と Exchange Online 間の同期に関するエラーの事例集
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%A8%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E6%9C%AC/">Azure AD と Exchange Online の同期とトラブルシューティングの基本
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%82%92%E4%B9%97%E3%81%A3%E5%8F%96%E3%82%89%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E5%AF%BE%E5%BF%9C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">アカウントを乗っ取られた際の対応について
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Export-Office365LicenseStatus%20%E3%81%AE%E3%81%94%E7%B4%B9%E4%BB%8B/">Export-Office365LicenseStatus のご紹介
+</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 jpmessaging<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

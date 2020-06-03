@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Edge サーバーを振り返る エピソード 1
+ | Japan Exchange &amp; Outlook Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは。Exchange サポートの竹本です。 今回は意外と知っているようで見落としがちな Edge サーバーについてのおさらいです。Exchange 2013 で HUB の役割がなくなり、2016 では CAS の役割もなくなりました。しかし！エッジ トランスポート サーバーは未だ顕在している、重要な役割です。 そもそも エッジ トランスポート サーバーとはこれは皆さまご存知かと思いますが">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Edge サーバーを振り返る エピソード 1
+">
+<meta property="og:url" content="https://jpmessaging.github.io/blog/Edge%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/index.html">
+<meta property="og:site_name" content="Japan Exchange &amp; Outlook Support Blog">
+<meta property="og:description" content="こんにちは。Exchange サポートの竹本です。 今回は意外と知っているようで見落としがちな Edge サーバーについてのおさらいです。Exchange 2013 で HUB の役割がなくなり、2016 では CAS の役割もなくなりました。しかし！エッジ トランスポート サーバーは未だ顕在している、重要な役割です。 そもそも エッジ トランスポート サーバーとはこれは皆さまご存知かと思いますが">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Edge%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/Pic1.jpg">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Edge%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/Pic2.png">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Edge%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/Pic3.png">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Edge%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/Pic4.png">
+<meta property="article:published_time" content="2015-11-23T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-03T03:05:04.053Z">
+<meta property="article:author" content="jpmessaging">
+<meta property="article:tag" content="Exchange">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmessaging.github.io/blog/Edge%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/Pic1.jpg">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Japan Exchange &amp; Outlook Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Japan Exchange &amp; Outlook Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">日本マイクロソフト Exchange &amp; Outlook サポート チームのブログです</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmessaging.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Edge サーバーを振り返る エピソード 1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/Edge%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/" class="article-date">
+  <time datetime="2015-11-23T15:00:00.000Z" itemprop="datePublished">2015-11-24</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Edge サーバーを振り返る エピソード 1
+
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="/blog/Edge%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/" class="article-date-single">    
+    
+    <time datetime="2015-11-23T15:00:00.000Z" itemprop="dateUpdated">2015-11-24</time>
+    
+</a>              
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは。Exchange サポートの竹本です。</p>
+<p>今回は意外と知っているようで見落としがちな Edge サーバーについてのおさらいです。<br>Exchange 2013 で HUB の役割がなくなり、2016 では CAS の役割もなくなりました。しかし！エッジ トランスポート サーバーは未だ顕在している、重要な役割です。</p>
+<h2 id="そもそも-エッジ-トランスポート-サーバーとは"><a href="#そもそも-エッジ-トランスポート-サーバーとは" class="headerlink" title="そもそも エッジ トランスポート サーバーとは"></a>そもそも エッジ トランスポート サーバーとは</h2><p>これは皆さまご存知かと思いますが、エッジ トランスポート サーバーは Exchange 役割の中で唯一、<span style="color: red">境界ネットワーク (DMZ) に置くことができるサーバー</span>であり、Exchange 組織とインターネット間で発生するすべての受信および送信メッセージ (メールフロー) を処理します。<br>また、メッセージ保護やセキュリティ向上を目的としたトランスポート エージェントも組み込まれているため、内部 Exchange 組織がインターネット上の脅威 (ウィルスやスパムなど) にさらされるリスクを最小限に抑えることが可能です。<br>主な機能概要は以下でも紹介しておりますので、ご参照ください。</p>
+<p>* エッジ トランスポート サーバーには、リバース プロキシ サーバーや CAS サーバーのように、クライアントからの HTTP リクエストを処理する機能はありません。あくまでもトランスポート サーバーとして機能します。</p>
+<p>　Title : エッジ トランスポート サーバー<br>　URL : <a href="https://technet.microsoft.com/ja-jp/library/bb124701.aspx" target="_blank" rel="noopener">https://technet.microsoft.com/ja-jp/library/bb124701.aspx</a></p>
+<p>なおエッジ トランスポート サーバーは、組織の Exchange サーバーと一切特別な関係を持たないスタンドアロン サーバーとして使用することもできれば、エッジ サブスクリプションを作成することで組織内のトランスポート サーバーとして扱う (Get-TransportServer 等でも表示されるようになります) 事も可能です。</p>
+<h2 id="エッジ-サブスクリプションを作成すると"><a href="#エッジ-サブスクリプションを作成すると" class="headerlink" title="エッジ サブスクリプションを作成すると"></a>エッジ サブスクリプションを作成すると</h2><p>上述の通り、エッジ サブスクリプションを作成することで<span style="color: red">組織内のトランスポート サーバーとして</span>扱う事ができるようになり、管理面、機能面共に様々なメリットがあります。</p>
+<p>　Title : エッジ サブスクリプション<br>　URL : <a href="https://technet.microsoft.com/ja-jp/library/aa997438(v=exchg.150).aspx" target="_blank" rel="noopener">https://technet.microsoft.com/ja-jp/library/aa997438(v=exchg.150).aspx</a></p>
+<p>サブスクリプションにより組織のディレクトリに保存された Active Directory データがエッジ トランスポート サーバー上 Active Directory Lightweight Directory Services (AD LDS) に同期されますが、これはあくまでもメールボックス サーバー (Exchange Server 2010 の場合は ハブ トランスポートサーバー) – エッジ トランスポート サーバー間で行われる同期処理の一環であり、エッジ トランスポート サーバーが直接組織内のドメイン コントローラーと通信を行うことはありません。<br>以下にはエッジ トランスポート サーバーで必要な通信ポートの情報や、ちょっと特殊な (エッジならではの) DNS の設定について紹介しておりますので、是非ご参照ください。</p>
+<p>　Title : エッジ トランスポート サーバーの計画<br>　URL : <a href="https://technet.microsoft.com/JA-JP/library/dn641596(v=exchg.150).aspx" target="_blank" rel="noopener">https://technet.microsoft.com/JA-JP/library/dn641596(v=exchg.150).aspx</a></p>
+<p>では、いくつか細かな点を見ていきたいと思います。</p>
+<h2 id="エッジ-サブスクリプションの作成単位"><a href="#エッジ-サブスクリプションの作成単位" class="headerlink" title="エッジ サブスクリプションの作成単位"></a>エッジ サブスクリプションの作成単位</h2><p>エッジ サブスクリプションは、個々のエッジ トランスポート サーバーと、組織内の任意の AD サイトの間で作成されるものとなり、1 つの AD サイトに複数のエッジ トランスポート サーバーを購読させることは可能ですが、1 つのエッジ トランスポート サーバーが複数の Active Directory サイトを購読することはできません。<br>またエッジ トランスポート サーバー間での設定同期は行われないので、複数のエッジ トランスポート サーバーが展開されている環境では、各サーバーにおいて AD サイトを購読するための設定 (サブスクリプションの作成) が必要となります。<br>以下のようなイメージですね。</p>
+<p><img src="Pic1.jpg" alt=""></p>
+<h2 id="ドメインに参加できるのか"><a href="#ドメインに参加できるのか" class="headerlink" title="ドメインに参加できるのか"></a>ドメインに参加できるのか</h2><p>エッジ トランスポート サーバーの役割は、基本的に DMZ に配置することを想定された役割となり、組織の Active Directory ドメインに参加する必要がありません。<br>技術的には、ドメインに参加させることは可能であり、それ自体がサポートされない構成といったことはありませんが、実績も多くそして推奨される構成はワークグループ構成です。</p>
+<h2 id="同期されたデータの格納場所"><a href="#同期されたデータの格納場所" class="headerlink" title="同期されたデータの格納場所"></a>同期されたデータの格納場所</h2><p>先ほど、組織の AD 上のデータはエッジ トランスポート サーバー上の AD LDS に格納されるといいましたが、結局は同じ Active Directory をベースとしていますので、ADSI エディターを使ってその中のデータを見ることができます。<br>具体的には、ADSI エディターを起動して接続時の情報として、以下のように50389 ポートに接続するように入力します。</p>
+<p><img src="Pic2.png" alt=""></p>
+<p>接続後の画面を展開すると、組織内で見慣れた構成パーティションと同じように、Microsoft Exchange 配下の情報を確認することができます。<br>* もちろん、すべてのデータが同期されるわけではありませんので、確認できる情報にも限りがあります。</p>
+<p><img src="Pic3.png" alt=""></p>
+<h2 id="エッジ-トランスポート-サーバーを用いたメール-ルーティング"><a href="#エッジ-トランスポート-サーバーを用いたメール-ルーティング" class="headerlink" title="エッジ トランスポート サーバーを用いたメール ルーティング"></a>エッジ トランスポート サーバーを用いたメール ルーティング</h2><p>エッジ サブスクリプションを作成した後、その組織にはエッジ トランスポート サーバーを SourceTransportServer とした送信コネクターが 2 つ、作成されます。<br>まず、それぞれの用途について簡単に説明します。<br>* それぞれのコネクターの詳細については、上述の TechNet でも紹介されていますので、是非！</p>
+<ol>
+<li><p>EdgeSync - &lt;サイト名&gt; to Internet<br>その名の通り、Exchange 組織 (購読したサイト) からエッジ トランスポート サーバーを経由して、外部へ送信するための送信コネクターです。</p>
+</li>
+<li><p>EdgeSync – Inbound to &lt;サイト名&gt;<br>こちらはエッジ トランスポート サーバーがインターネットから受信したメッセージを、Exchange 組織 (購読したサイト) のサーバーへ送信するための送信コネクターです。このコネクターの特徴として、アドレス スペースおよびスマートホストに “–” が設定されている事が挙げられます。アドレス スペースに設定された “–” は、Exchange 組織の承認済みドメイン (権限のあるドメイン、および内部の中継ドメイン) を意味し、スマートホストに設定された “–” は、の Active Directory サイトにあるすべてのメールボックス サーバー (Exchange Server 2010 の場合は HUB サーバー) を示します。</p>
+</li>
+</ol>
+<p>エッジ トランスポート サーバーが動作する上で必要となる送信コネクターは最低限上記 2 つとなりますが、皆さま、お気づきでしょうか。<br>Exchange 組織のメールボックス サーバー (Exchange Server 2010 の場合はハブトランスポート サーバー) から、エッジ トランスポート サーバーへのコネクターがありません。</p>
+<p>既に説明の通り、エッジ サブスクリプションを購読済みの環境では、エッジ トランスポート サーバーは Exchange 組織の 1 サーバーとして扱われます。そして、組織内のトランスポート サーバー同士の SMTP 通信に<span style="color: red">送信コネクターは必要ありません</span>。これは異なる AD サイト間におけるメールフローと同様で、暗黙的に用意された 組織内の<span style="color: red">SMTP 送信コネクター</span>が使用されるためです。</p>
+<p>少しわかりにくいですが、これも絵にしてみると、こんな感じです。(Exchange Server 2013 の場合です。)</p>
+<p><img src="Pic4.png" alt=""></p>
+<p>つまり、エッジ サブスクリプションの設定が完了すれば、最低限既定で作成されるコネクターだけで外部との送受信が可能となります。</p>
+<p>と、気づいたら長文となってしまいました。<br>エッジ トランスポート サーバーにはまだまだ便利な機能がありますので、次の機会にご紹介したいと思います。</p>
+<p>今後とも、当ブログ並びにサポート チームをよろしくお願いいたします。</p>
+<p>12月24日、第二弾を公開しました。是非ご一読ください。<br><a href="\blog\Edge%20サーバーを振り返る%20エピソード%202">Edge サーバーを振り返る エピソード 2</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmessaging.github.io/blog/Edge%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/" data-id="ckays4u7i00087wstesjodp9z" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/Edge%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%202/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Edge サーバーを振り返る エピソード 2
+
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/%E5%A4%A7%E9%87%8F%E3%81%AE%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%E3%81%AB%E6%89%80%E5%B1%9E%E3%81%99%E3%82%8B%E5%A0%B4%E5%90%88%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">大量のグループに所属する場合の注意点
+</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/EXO/" rel="tag">EXO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hybrid/" rel="tag">Hybrid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/O365Identity/" rel="tag">O365Identity</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/11/">November 2012</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E4%B8%8A%E3%81%A7%E8%87%AA%E5%B7%B1%E7%BD%B2%E5%90%8D%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%E3%81%8C%E5%88%87%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9/">Exchange 2013 のメールボックス サーバー上で自己署名証明書の有効期限が切れた際の注意点
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/">Azure AD と Exchange Online 間の同期に関するエラーの事例集
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%A8%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E6%9C%AC/">Azure AD と Exchange Online の同期とトラブルシューティングの基本
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%82%92%E4%B9%97%E3%81%A3%E5%8F%96%E3%82%89%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E5%AF%BE%E5%BF%9C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">アカウントを乗っ取られた際の対応について
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Export-Office365LicenseStatus%20%E3%81%AE%E3%81%94%E7%B4%B9%E4%BB%8B/">Export-Office365LicenseStatus のご紹介
+</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 jpmessaging<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

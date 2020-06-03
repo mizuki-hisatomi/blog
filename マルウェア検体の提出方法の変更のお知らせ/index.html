@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>マルウェア検体の提出方法の変更のお知らせ
+ | Japan Exchange &amp; Outlook Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは、Exchange Server サポートの渡辺です。今回は Exchange Online におけるマルウェア検体のご提供手順に変更がございましたので、ご紹介させていただきます。 これまで Exchange Online でマルウェアの可能性があるメールを受信した場合や、逆にマルウェアでは無いにも関わらずマルウェアとして判定されてしまった場合には、以下のブログでもご紹介しております M">
+<meta property="og:type" content="article">
+<meta property="og:title" content="マルウェア検体の提出方法の変更のお知らせ
+">
+<meta property="og:url" content="https://jpmessaging.github.io/blog/%E3%83%9E%E3%83%AB%E3%82%A6%E3%82%A7%E3%82%A2%E6%A4%9C%E4%BD%93%E3%81%AE%E6%8F%90%E5%87%BA%E6%96%B9%E6%B3%95%E3%81%AE%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/index.html">
+<meta property="og:site_name" content="Japan Exchange &amp; Outlook Support Blog">
+<meta property="og:description" content="こんにちは、Exchange Server サポートの渡辺です。今回は Exchange Online におけるマルウェア検体のご提供手順に変更がございましたので、ご紹介させていただきます。 これまで Exchange Online でマルウェアの可能性があるメールを受信した場合や、逆にマルウェアでは無いにも関わらずマルウェアとして判定されてしまった場合には、以下のブログでもご紹介しております M">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-09-04T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-03T03:05:04.082Z">
+<meta property="article:author" content="jpmessaging">
+<meta property="article:tag" content="EXO">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Japan Exchange &amp; Outlook Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Japan Exchange &amp; Outlook Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">日本マイクロソフト Exchange &amp; Outlook サポート チームのブログです</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmessaging.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-マルウェア検体の提出方法の変更のお知らせ" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/%E3%83%9E%E3%83%AB%E3%82%A6%E3%82%A7%E3%82%A2%E6%A4%9C%E4%BD%93%E3%81%AE%E6%8F%90%E5%87%BA%E6%96%B9%E6%B3%95%E3%81%AE%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" class="article-date">
+  <time datetime="2017-09-04T15:00:00.000Z" itemprop="datePublished">2017-09-05</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      マルウェア検体の提出方法の変更のお知らせ
+
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="/blog/%E3%83%9E%E3%83%AB%E3%82%A6%E3%82%A7%E3%82%A2%E6%A4%9C%E4%BD%93%E3%81%AE%E6%8F%90%E5%87%BA%E6%96%B9%E6%B3%95%E3%81%AE%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" class="article-date-single">    
+    
+    <time datetime="2017-09-04T15:00:00.000Z" itemprop="dateUpdated">2017-09-05</time>
+    
+</a>              
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは、Exchange Server サポートの渡辺です。<br>今回は Exchange Online におけるマルウェア検体のご提供手順に変更がございましたので、ご紹介させていただきます。</p>
+<p>これまで Exchange Online でマルウェアの可能性があるメールを受信した場合や、逆にマルウェアでは無いにも関わらずマルウェアとして判定されてしまった場合には、以下のブログでもご紹介しております Microsoft Malware Protection Center (MMPC) より、検体をご提出いただいておりました。</p>
+<p>   Title : Exchange Online でマルウェアを受信した場合の対策について<br>   URL : <a href="https://blogs.technet.microsoft.com/exchangeteamjp/2015/11/16/exchange-online-7/" target="_blank" rel="noopener">https://blogs.technet.microsoft.com/exchangeteamjp/2015/11/16/exchange-online-7/</a></p>
+<p>しかしながら、先月よりマルウェアの検体提出については、MMPC ではなく Windows Defender Security Intelligence を利用する形に変更されており、ご提供いただく際の手順等も変更されております。<br>基本的には入力いただく内容に大きな変更はございませんが、以下にご提供いただく際の手順をお纏めしておりますので、ご提供いただく際の参考としていただけますと幸いです。<br>&nbsp;<br>Windows Defender Security Intelligence でマルウェアのサンプルを提出する手順<br>=====================================</p>
+<ol>
+<li>以下の URL にアクセスします。</li>
+</ol>
+<p>&nbsp;&nbsp;<a href="https://www.microsoft.com/en-us/wdsi/filesubmission" target="_blank" rel="noopener">https://www.microsoft.com/en-us/wdsi/filesubmission</a></p>
+<ol start="2">
+<li><p>検体をご提出いただくユーザーの種類を選択し、”Continue” をクリックします。<br>&nbsp;&nbsp;プライベートでご利用されているお客様 : Home customer<br>&nbsp;&nbsp;ビジネスでご利用されているお客様 : Enterprise customer<br>&nbsp;&nbsp;自社製品の開発等で検証を実施されたいお客様 : Software developer</p>
+</li>
+<li><p>Microsoft アカウントでログインします。</p>
+</li>
+<li><p>必要事項を入力し、”Continue” をクリックします。<br>&nbsp;&nbsp;基本的な入力項目は以下となりますので、ご参考ください。<br>&nbsp;&nbsp;※ (*) は入力必須の項目です</p>
+</li>
+</ol>
+<p>&nbsp;&nbsp;Company Name (*) :<br>&nbsp;&nbsp;&nbsp;&nbsp;会社名を入力してください。</p>
+<p>&nbsp;&nbsp;Do you have a Microsoft support case number? :<br>&nbsp;&nbsp;&nbsp;&nbsp;弊社にお問合せいただいている場合は、”Yes” を選択し、お問合せ番号を入力してください。<br>&nbsp;&nbsp;&nbsp;&nbsp;お問合せいただいてない場合は、”No” を選択してください。</p>
+<p>&nbsp;&nbsp;Software Assurance ID :<br>&nbsp;&nbsp;&nbsp;&nbsp;Software Assurance ID (SAID) をお持ちの場合に入力してください。</p>
+<p>&nbsp;&nbsp;Select the file (*) :<br>&nbsp;&nbsp;&nbsp;&nbsp;サンプルとしてご提供いただくファイルを選択してください。</p>
+<p>&nbsp;&nbsp;Should this file be removed from our database at a certain date? :<br>&nbsp;&nbsp;&nbsp;&nbsp;弊社にご提供いただいたファイルを削除する日を指定する場合は “Yes” を選択し、日にちを指定してください。<br>&nbsp;&nbsp;&nbsp;&nbsp;特に指定が無い場合は、”No” を選択します。</p>
+<p>&nbsp;&nbsp;Do you believe this file contains malware? :<br>&nbsp;&nbsp;&nbsp;&nbsp;マルウェアの可能性があるファイルをお寄せいただく場合は、”Yes” を選択します。<br>&nbsp;&nbsp;&nbsp;&nbsp;誤ってマルウェアとして検知されたファイルをお寄せいただく場合は、”No” を選択します。</p>
+<p>&nbsp;&nbsp;Select the Microsoft security product used to scan the file (*) :<br>&nbsp;&nbsp;&nbsp;&nbsp;マルウェアを検知した製品・サービスを選択します。<br>&nbsp;&nbsp;&nbsp;&nbsp;Exchange Online の場合は、”Office 365 and Exchange Online Protection” を選択してください。</p>
+<p>&nbsp;&nbsp;Detection name (*) :<br>&nbsp;&nbsp;&nbsp;&nbsp;マルウェアとして検知された際の名前を入力します。例 : X97M/Dropper</p>
+<p>&nbsp;&nbsp;Additional information (*) :<br>&nbsp;&nbsp;&nbsp;&nbsp;その他に検知された内容に関する情報があれば、入力します。</p>
+<ol start="5">
+<li>入力した内容の確認ページが表示されますので、問題が無ければ “Submit” をクリックして、アップロードしてください。<br>&nbsp;<br>引き続き Exchange Online では複数のマルウェア対策エンジンを使用することでセキュリティ強化と誤検知の削減に努めてまいりますが、万が一疑わしいメッセージを受信した場合には、安易にメッセージを開かず、上記手順に基づき早急な検体提出にご協力をいただけますようお願いいたします。<br>今後とも、弊社サポート ブログをよろしくお願いいたします。</li>
+</ol>
+<p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmessaging.github.io/blog/%E3%83%9E%E3%83%AB%E3%82%A6%E3%82%A7%E3%82%A2%E6%A4%9C%E4%BD%93%E3%81%AE%E6%8F%90%E5%87%BA%E6%96%B9%E6%B3%95%E3%81%AE%E5%A4%89%E6%9B%B4%E3%81%AE%E3%81%8A%E7%9F%A5%E3%82%89%E3%81%9B/" data-id="ckays4u80001j7wst95nz9anb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/EXO/" rel="tag">EXO</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/%E3%82%BB%E3%83%AB%E3%83%95%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%20%E3%82%B5%E3%82%A4%E3%83%B3%E3%82%A2%E3%83%83%E3%83%97%E3%81%A7%E7%99%BB%E9%8C%B2%E3%81%95%E3%82%8C%E3%81%9F%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E3%81%AE%E5%AF%BE%E5%87%A6%E6%96%B9%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          セルフサービス サインアップで登録されたドメインの対処方法
+
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/Office%20365%20%E3%81%AE%E8%A8%80%E8%AA%9E%E8%A8%AD%E5%AE%9A%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Office 365 の言語設定について
+</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/EXO/" rel="tag">EXO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hybrid/" rel="tag">Hybrid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/O365Identity/" rel="tag">O365Identity</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/11/">November 2012</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E4%B8%8A%E3%81%A7%E8%87%AA%E5%B7%B1%E7%BD%B2%E5%90%8D%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%E3%81%8C%E5%88%87%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9/">Exchange 2013 のメールボックス サーバー上で自己署名証明書の有効期限が切れた際の注意点
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/">Azure AD と Exchange Online 間の同期に関するエラーの事例集
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%A8%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E6%9C%AC/">Azure AD と Exchange Online の同期とトラブルシューティングの基本
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%82%92%E4%B9%97%E3%81%A3%E5%8F%96%E3%82%89%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E5%AF%BE%E5%BF%9C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">アカウントを乗っ取られた際の対応について
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Export-Office365LicenseStatus%20%E3%81%AE%E3%81%94%E7%B4%B9%E4%BB%8B/">Export-Office365LicenseStatus のご紹介
+</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 jpmessaging<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

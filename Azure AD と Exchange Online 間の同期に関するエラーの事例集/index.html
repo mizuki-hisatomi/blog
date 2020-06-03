@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Azure AD と Exchange Online 間の同期に関するエラーの事例集
+ | Japan Exchange &amp; Outlook Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは、Exchange サポートの渡辺です。 先日公開したブログで、Azure AD と Exchange Online 間の同期の問題に関するトラブルシューティングの基本をご紹介させていただきました。ただ、あまり事例の紹介ができていないので、今回はトラブルシューティングによって確認できたエラー内容毎に、いくつか詳細と対処方法をご紹介できればと思っています。 事例を紹介するその前に、Exch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Azure AD と Exchange Online 間の同期に関するエラーの事例集
+">
+<meta property="og:url" content="https://jpmessaging.github.io/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/index.html">
+<meta property="og:site_name" content="Japan Exchange &amp; Outlook Support Blog">
+<meta property="og:description" content="こんにちは、Exchange サポートの渡辺です。 先日公開したブログで、Azure AD と Exchange Online 間の同期の問題に関するトラブルシューティングの基本をご紹介させていただきました。ただ、あまり事例の紹介ができていないので、今回はトラブルシューティングによって確認できたエラー内容毎に、いくつか詳細と対処方法をご紹介できればと思っています。 事例を紹介するその前に、Exch">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/081001.jpg">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/081002.jpg">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/081003.jpg">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/081004.jpg">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/081005.jpg">
+<meta property="article:published_time" content="2018-08-09T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-03T03:06:34.759Z">
+<meta property="article:author" content="jpmessaging">
+<meta property="article:tag" content="Hybrid">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmessaging.github.io/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/081001.jpg">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Japan Exchange &amp; Outlook Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Japan Exchange &amp; Outlook Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">日本マイクロソフト Exchange &amp; Outlook サポート チームのブログです</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmessaging.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Azure AD と Exchange Online 間の同期に関するエラーの事例集" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/" class="article-date">
+  <time datetime="2018-08-09T15:00:00.000Z" itemprop="datePublished">2018-08-10</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Azure AD と Exchange Online 間の同期に関するエラーの事例集
+
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/" class="article-date-single">    
+    
+    <time datetime="2018-08-09T15:00:00.000Z" itemprop="dateUpdated">2018-08-10</time>
+    
+</a>              
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは、Exchange サポートの渡辺です。</p>
+<p><a href="/blog/Azure%20AD%20と%20Exchange%20Online%20の同期とトラブルシューティングの基本">先日公開したブログ</a>で、Azure AD と Exchange Online 間の同期の問題に関するトラブルシューティングの基本をご紹介させていただきました。<br>ただ、あまり事例の紹介ができていないので、今回はトラブルシューティングによって確認できたエラー内容毎に、いくつか詳細と対処方法をご紹介できればと思っています。</p>
+<h2 id="事例を紹介するその前に、Exchange-Online-のメールボックスのおさらい"><a href="#事例を紹介するその前に、Exchange-Online-のメールボックスのおさらい" class="headerlink" title="事例を紹介するその前に、Exchange Online のメールボックスのおさらい"></a>事例を紹介するその前に、Exchange Online のメールボックスのおさらい</h2><p>先日のブログではオンプレミスのリモート メールボックスや Exchange Online のメールボックス等について説明しました。<br>今回の事例を紹介するにあたっては、他の種類のメールボックスもいくつか登場してくるので、改めて登場人物の整理からしていきます。</p>
+<h3 id="アーカイブ-メールボックス-インプレース-アーカイブ"><a href="#アーカイブ-メールボックス-インプレース-アーカイブ" class="headerlink" title="アーカイブ メールボックス (インプレース アーカイブ)"></a>アーカイブ メールボックス (インプレース アーカイブ)</h3><p>※ここではいわゆる普通のメールボックスをプライマリ メールボックスと呼ぶことにします。</p>
+<p>アーカイブ メールボックスはプライマリ メールボックスとは別にユーザーが利用できる追加のメールボックスです。<br>アーカイブ メールボックスが何なのか自体はここではあまり関係無いので詳細は割愛します。詳しくは以下の公開情報をご確認ください。</p>
+<p>  Title : Exchange Online のアーカイブ メールボックス<br>  URL : <a href="https://technet.microsoft.com/ja-jp/library/dn922147(v=exchg.150).aspx" target="_blank" rel="noopener">https://technet.microsoft.com/ja-jp/library/dn922147(v=exchg.150).aspx</a></p>
+<p>今回の話をするにあたって、アーカイブ メールボックスについて知っておいていただきたいのは、以下の 2 点です。</p>
+<ul>
+<li>オンプレミス側でアーカイブ メールボックスの有効/無効を管理する (※1)</li>
+<li>あくまで、プライマリ メールボックスに紐付いた追加のメールボックスであること</li>
+</ul>
+<p>まず 1点目についてはそのままなのですが、Exchange Online でアーカイブ メールボックスを有効化したいときは、オンプレミスのリモート メールボックスに対して Enable-RemoteMailbox コマンドの Archive スイッチを使って有効化します。(逆に無効にするなら Disable-RemoteMailbox -Archive です)</p>
+<p>※1 : 厳密にはハイブリッド環境であっても、オンプレミス側でメールユーザーとして作成して Exchange Online にメールボックスを作成している場合等、Exchange Online 側から Enable-Mailbox コマンドでアーカイブ メールボックスを有効化できる場合もあるのですが、ここではオンプレミス側がリモートメールボックスである前提とします。</p>
+<p>2 点目については下の絵を見ていただいた方がもしかしたらわかりやすいのかもしれませんが、アーカイブ メールボックスも単に 1 人のユーザーに紐付いたメールボックスの 1 つであり、アーカイブ メールボックス用のユーザー (オブジェクト) ができるわけではありません。<br>Get-Mailbox や Get-RemoteMailbox で 1 人の情報を取得すれば、そこにはプライマリ メールボックスの情報 (ExchangeGuid) もアーカイブ メールボックスの情報 (ArchiveGuid) も含まれています</p>
+<p><img src="081001.jpg" alt=""></p>
+<h3 id="非アクティブ-メールボックスと-Soft-Deleted-Mailbox"><a href="#非アクティブ-メールボックスと-Soft-Deleted-Mailbox" class="headerlink" title="非アクティブ メールボックスと Soft-Deleted Mailbox"></a>非アクティブ メールボックスと Soft-Deleted Mailbox</h3><p>続いて、非アクティブ メールボックスと Soft-Deleted Mailbox (正しい日本語訳が見つからなかったのですが、オンプレミスで言うところの “切断されたメールボックス” や “削除済みメールボックス” などと呼ばれていたものと似たようなものです) についてです。<br>どちらも基本的には既に Azure AD 上のユーザーからは切り離されている (紐付いていない) 状態になっているメールボックスを指しており、違いと言えば 30 日で完全に削除されるか、それ以降も保持され続けるかの違いです。このあたりの違いについては以下の公開情報をご確認ください。</p>
+<p>  Title : Office 365 の非アクティブなメールボックスの概要<br>  URL : <a href="https://support.office.com/ja-jp/article/overview-of-inactive-mailboxes-in-office-365-1fbd74e8-7a60-4157-afe8-fe79f05d2038" target="_blank" rel="noopener">https://support.office.com/ja-jp/article/overview-of-inactive-mailboxes-in-office-365-1fbd74e8-7a60-4157-afe8-fe79f05d2038</a></p>
+<p>この 2 つのメールボックスについても今回に限って知っておいてもらいたいのは以下の 2 点だけです。</p>
+<ul>
+<li>Exchange Online にユーザー (オブジェクト) が残っている</li>
+<li>Azure AD 上のユーザーは既に削除されている (Azure AD 上のユーザーが同名で存在していても別のオブジェクトになっている)</li>
+</ul>
+<p>よくあるシナリオとしては、対象のオンプレミスのユーザーを削除したり (あるいは AAD Connect の非同期の対象にする)、Azure AD 上のユーザーを直接削除すると作られます。<br>以下はオンプレミスのユーザーを AAD Connect の同期対象外として Azure AD のユーザーを削除 (削除済みユーザーとなる) したときと、完全削除 (削除済みユーザーからも削除) したときのイメージです。<br>削除済みユーザーの時点では Soft-Deleted Mailbox の ExternalDirectoryObject に Azure AD のユーザーの ObjectId が設定されていますが、Azure AD のユーザーが削除されると Soft-Deleted Mailbox からも削除されていることが確認できますね。</p>
+<p>※ Azure AD 上のユーザーが削除済みユーザーとして残っている場合、Exchange Online 上では Soft-Deleted Mailbox になっていますが、実はまだメールボックスと紐付いた状態になっています。<br>なので、削除済みユーザーを復元すれば (ディレクトリ同期の対象に戻せば)、ユーザーに紐付いているメールボックスに再接続して引き続き利用可能になります。</p>
+<p><img src="081002.jpg" alt=""></p>
+<h2 id="Azure-AD-Exchange-Online-間の同期の問題でよくある事例"><a href="#Azure-AD-Exchange-Online-間の同期の問題でよくある事例" class="headerlink" title="Azure AD - Exchange Online 間の同期の問題でよくある事例"></a>Azure AD - Exchange Online 間の同期の問題でよくある事例</h2><p>それでは、Azure AD と Exchange Online 間の同期で発生する問題について、いくつかのパターンを紹介していこうと思います。</p>
+<p>大抵の場合、目に見える事象としては、メールボックスが作成されない、設定変更したのに反映されない、メールボックスが削除されないのいずれかになりますが、その原因は様々です。<br>ここでは、<a href="/blog/Azure%20AD%20と%20Exchange%20Online%20の同期とトラブルシューティングの基本">先日のブログ</a>で紹介した Get-MsolUser コマンドを使って確認できるエラー毎にまとめていきます。</p>
+<h3 id="1-訴訟ホールド、インプレース保持、保持ポリシー-SCC-が有効な場合のエラー"><a href="#1-訴訟ホールド、インプレース保持、保持ポリシー-SCC-が有効な場合のエラー" class="headerlink" title="1. 訴訟ホールド、インプレース保持、保持ポリシー(SCC) が有効な場合のエラー"></a>1. 訴訟ホールド、インプレース保持、保持ポリシー(SCC) が有効な場合のエラー</h3><p>まずはエラーの内容から確認しましょう。<br>といっても、Get-MsolUser コマンドでのトラブルシューティング方法を紹介したときに使用したものと同じで、ここで取り上げるのは以下のエラーです。</p>
+<blockquote>
+<p>ErrorDescription : Exchange can’t disable the mailbox “JPNPR01A004.PROD.OUTLOOK.COM/Microsoft Exchange Hosted Organizations/yowatana002.onmicrosoft.com/testuserA” because it is on In-Place Hold.</p>
+</blockquote>
+<p>基本的にはユーザーを削除した場合に非アクティブ メールボックスになるようなシナリオにおいて、ユーザーは削除せずにライセンスだけを剥奪したりすると発生します。<br>非アクティブ メールボックスになるシナリオはいくつかあるのですが、以下の 4 つのいずれかによる保持を有効にした状態でユーザーを削除すると作られます。<br>いずれもライセンスが必要な機能となるため、この状況下でライセンスだけを剥奪するとこのエラーが発生します。</p>
+<ul>
+<li>ExO の eDiscovery でインプレース保持を有効にする</li>
+<li>ExO で訴訟ホールドを有効にする</li>
+<li>SCC (セキュリティ/コンプライアンス センター) の eDiscovery でインプレース保持を適用する</li>
+<li>SCC のアイテム保持ポリシーを適用する</li>
+</ul>
+<p>※ ExO の訴訟ホールドが有効な場合だけは少し違うメッセージになります。</p>
+<blockquote>
+<p>ErrorDescription : Exchange can’t disable the mailbox “JPNPR01A004.PROD.OUTLOOK.COM/Microsoft Exchange Hosted Organizations/yowatana002.onmicrosoft.com/testuserB” because it is <span style="color: red">on litigation hold</span></p>
+</blockquote>
+<p>これらの保持が有効かどうかについては、基本的には Get-Mailbox コマンドで確認できます。<br>LitigationHoldEnabled が True なら訴訟ホールドが有効で、InPlaceHolds に何かの値が入っていれば他の 3 つのうちのどれかの設定で保持が有効になっています。</p>
+<p><img src="081003.jpg" alt=""></p>
+<p>いずれの保持が有効であったとしても対処方法は以下の公開情報にあるとおりで、ライセンスを剥奪して削除するのではなく、同期元のオンプレミスのユーザーを AAD Connect の同期対象外にして Azure AD 上から削除し、Exchange Online 側で非アクティブ メールボックスに変換します。</p>
+<p>  Title : 非アクティブなメールボックスを作成する際の注意点<br>  URL : <a href="https://answers.microsoft.com/ja-jp/msoffice/forum/msoffice_o365admin-mso_exchon-mso_o365b/非アクティ/e82edc4b-d65f-4089-be72-ddfc91a0240a" target="_blank" rel="noopener">https://answers.microsoft.com/ja-jp/msoffice/forum/msoffice_o365admin-mso_exchon-mso_o365b/非アクティ/e82edc4b-d65f-4089-be72-ddfc91a0240a</a></p>
+<p>なお、Get-Mailbox の結果の LitigationHoldEnabled が False で InPlaceHolds が空の場合でも、同様のエラー メッセージが記録される場合も実はあります。<br>しかも2パターンあります。</p>
+<p>1 つ目は、SCC のアイテム保持ポリシーを個別のメールボックスに対してではなく、組織レベルで適用している場合です。<br>組織レベルで適用されているかなどの詳細は以下のブログでご紹介しているので、もしいずれの保持も設定されていなそうなときはご確認ください。</p>
+<p>  Title : セキュリティ コンプライアンス センターで設定する保持ポリシーのメールボックスへの適用状況を確認する方法<br>  URL : <a href="https://blogs.technet.microsoft.com/exchangeteamjp/2018/04/17/how-to-see-which-retention-policy-is-applied-to-your-mailbox/" target="_blank" rel="noopener">https://blogs.technet.microsoft.com/exchangeteamjp/2018/04/17/how-to-see-which-retention-policy-is-applied-to-your-mailbox/</a></p>
+<p>2 つ目は、削除の直前までインプレース ホールドや訴訟ホールドが有効だった場合です。<br>このようなシナリオで削除を試みた場合は、Get-Mailbox の DelayHoldApplied の設定を確認してみてください。</p>
+<p><img src="081004.jpg" alt=""></p>
+<p>この画像のように DelayHoldApplied が True となっている場合は、意図的にメールボックスの削除が 30 日遅延される動作になり、Exchange Online 的にはその間はインプレース ホールドが有効な状態と判断するため、同じエラーが出ます。<br>これは、直前まで保持が有効なメールボックスであったので、誤操作などで本来は必要であったデータを間違って削除してしまうことがないように、Exchange Online が意図的に値を True に設定して削除を遅延させています。<br>もちろん、対象のメールボックスに誤りがなければ遅延させる必要はないので、以下のコマンドで DelayHoldApplied を False に変更してメールボックスが削除されるか確認していただければと思います。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-Mailbox</span> <span class="literal">-Identity</span> &lt;対象のメールボックス&gt; <span class="literal">-RemoveDelayHoldApplied</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-ExchagneGuid-関連のエラー"><a href="#2-ExchagneGuid-関連のエラー" class="headerlink" title="2. ExchagneGuid 関連のエラー"></a>2. ExchagneGuid 関連のエラー</h3><p>続いてのエラーは、一度メールボックスを削除しようとしたものの、やはりメールボックスが必要だということになり、新しいメールボックスを作成しようとしたときに発生したものです。<br>実際はこのエラーにより新しいメールボックスは作成されていませんでした。</p>
+<blockquote>
+<p>ErrorDescription : The value “01855e55-d849-4631-b160-5c9c1ad491dc” of property “ExchangeGuid” is used by another recipient object. Please specify a unique value.</p>
+</blockquote>
+<p>エラーの内容通り、ExchangeGuid に設定されている値が、他の受信者オブジェクトと競合してしまっているために、エラーになっているようです。</p>
+<p>下の絵を見ながら読んでもらえればと思うのですが、このユーザーは以前のメールボックスを削除する前からオンプレミスのリモート メールボックスに、Exchange Online のメールボックスと同じ ExchangeGuid が設定されていました。<br>オンプレミスのメールボックスを Exchange Online に移動すると自動的にこのような設定になりますね。<br>そしてメールボックスを削除するためにオンプレミスのリモート メールボックスを Azure AD の同期対象外として Azure AD 上のユーザーを削除したことで、Exchange Online のメールボックスは Soft-Deleted Mailbox になりましたが、引き続き ExchangeGuid は設定されたままになっています。</p>
+<p>そして、今回メールボックスを再作成する必要がでてきたので、改めて AAD Connect によりオンプレミスのリモート メールボックスを Azure AD に同期し、新しい Azure AD 上のユーザーを作成しました。<br>ここでポイントになるのが、最初の Soft-Deleted Mailbox の説明に書いた、Azure AD のユーザーを削除しているため Soft-Deleted Mailbox の ExternalDirectoryObject は既に空になっている (どのユーザーとも紐付いていない) ということです。<br>つまり、新しく作成された Azure AD のユーザーと Soft-Deleted Mailbox は紐付いていない ≒ 別のオブジェクト であるため、別のオブジェクトと ExchangeGuid が競合していますよということでエラーになっています。</p>
+<p><img src="081005.jpg" alt=""></p>
+<p>じゃあどうするのかというと、対処は簡単で以下の手順を実施するだけで、オンプレミスのリモート メールボックスの ExchangeGuid を削除すれば Exchange Online に新しいメールボックスが作成されます。</p>
+<ol>
+<li>オンプレミスでリモート メールボックスの ExchangeGuid を削除して値の競合を回避 (<code>Set-RemoteMailbox -ExchangeGuid 00000000-0000-0000-0000-000000000000</code>)</li>
+<li>AAD Connect によるディレクトリ同期を実行</li>
+<li>作成された新規ユーザーにライセンスを付与</li>
+<li>必要があれば (必須ではありません)、オンプレミスのリモート メールボックスに対して、Exchange Online のメールボックスに設定されている ExchangeGuid を付与 (<code>Set-RemoteMailbox -ExchangeGuid xxx</code>)</li>
+</ol>
+<p>補足:<br>上に書いたとおりオンプレミスのリモート メールボックスの ExchangeGuid を空にすることが正しい手順ですが、「じゃあ競合しない ExchangeGuid なら設定しててもいいの？」と思った方向けに補足します。<br>これの答えは「NO」です。<br>なぜかと言うと、最初から ExchangeGuid が設定されているユーザーはオンプレミスにメールボックスが存在していた場合のみを想定しており、そのようなユーザーに関しては Exchange Online 上でライセンスを付与しても、メールボックスが作成されない (オンプレミスのメールボックスを移動する必要がある) からです。<br>※ この場合は属性値の競合が発生しているわけではないので、Get-MsolUser 上は何もエラーは発生しません。メールボックスが作られない＋エラーもないときは、リモート メールボックスに ExchangeGuid が設定されていないか確認してみましょう。</p>
+<h3 id="3-ArchiveGuid-関連のエラー"><a href="#3-ArchiveGuid-関連のエラー" class="headerlink" title="3. ArchiveGuid 関連のエラー"></a>3. ArchiveGuid 関連のエラー</h3><p>3 つ目のエラーですが、大抵の場合 2 で紹介した ExchagneGuid のエラーに対処した後に出てくることが多いです。<br>理由は後ほど、、、ということで、ひとまずエラーの内容を見てみましょう。</p>
+<blockquote>
+<p>ErrorDescription : The value “ecbdbf6a-de22-4464-b5a6-332a5c2396e2” of property “ArchiveGuid” is used by another recipient object. Please specify a unique value.</p>
+</blockquote>
+<p>先ほどの ExchangeGuid のエラーと同じように、今度は ArchiveGuid で競合が発生しているようです。<br>最初に ExchangeGuid を対処した後に出てくることが多いと書きましたが、発生原因は ExchangeGuid と同じで、オンプレミスに設定されている値と同じ値を持つ他の受信者オブジェクトが存在していることが原因なので、ExchangeGuid だけ対処しても今度は ArchiveGuid の競合でひっかかってしまうからというのがその理由です。<br>1 回の対処で ExchangeGuid と ArchiveGuid の競合両方に対処した方が手間も少ないので、ExchangeGuid のエラーが出たら Archive が有効なメールボックスでないか (このエラーが発生しうる状態でないか) も確認しておきましょう。</p>
+<p>次は対処についてなのですが、ExxchangeGuid と同じようにオンプレミスのリモート メールボックスに設定された ArchiveGuid を削除すればいいよねと思った方、少しお待ち下さい。<br>実はこれをやると今度は下のエラーが発生します。</p>
+<blockquote>
+<p>ErrorDescription : Cannot validate argument on parameter ‘ArchiveGuid’. The argument is empty. Supply an argument that isn’t empty, and try the command again.</p>
+</blockquote>
+<p>残念ながら、ArchiveGuid は ExchangeGuid とは違って値を未設定にして同期を行うことができません。<br>最初にアーカイブ メールボックスはオンプレミスで有効/無効を管理すると説明しましたが、オンプレミス側で有効化しているのにオンプレミスの ArchiveGuid が未設定というのはそもそもおかしいのでエラーになっているというわけです。</p>
+<p>では、どうすればいいのかと言うと、実は ArchiveGuid の競合の場合は ExchangeGuid とは違って、オンプレミスのリモート メールボックスに設定されている ArchiveGuid を競合しないものに変えるだけで問題ありません。<br>そのため、以下の手順で対処できます。</p>
+<ol>
+<li>オンプレミスでリモート メールボックスの ArchiveGuid を別の値に変更する (Set-RemoteMailbox -ArchiveGuid xxx)</li>
+<li>AAD Connect によるディレクトリ同期を実行</li>
+</ol>
+<p>補足:<br>新しい ArchiveGuid を付与するときは、自動的に GUID を作成してくれる NewGuid メソッドを以下のように使うと便利です。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-RemoteMailbox</span> userA <span class="literal">-ArchiveGUID</span> ([<span class="type">guid</span>]::NewGUID())</span><br></pre></td></tr></table></figure>
+
+<p>- 参考<br>Title : Guid.NewGuid メソッド<br>URL : <a href="https://msdn.microsoft.com/ja-jp/library/system.guid.newguid(v=vs.110).aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/ja-jp/library/system.guid.newguid(v=vs.110).aspx</a></p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>今回、いくつか Azure AD と Exchange Online の同期に関する内容を紹介しました。<br>すべてのエラーについて紹介するのはなかなか難しいですが、先日のブログで紹介した Error の確認方法と上で説明したような現在の状態・構成・動作さえ把握できていれば、対処方法などもイメージしやすいのではないかと思ってまとめたつもりではありますので、今後の運用に役立てていただけたら幸いです。</p>
+<p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmessaging.github.io/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/" data-id="ckays4u7l000f7wstbat53mys" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Hybrid/" rel="tag">Hybrid</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E4%B8%8A%E3%81%A7%E8%87%AA%E5%B7%B1%E7%BD%B2%E5%90%8D%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%E3%81%8C%E5%88%87%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Exchange 2013 のメールボックス サーバー上で自己署名証明書の有効期限が切れた際の注意点
+
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%A8%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E6%9C%AC/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Azure AD と Exchange Online の同期とトラブルシューティングの基本
+</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/EXO/" rel="tag">EXO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hybrid/" rel="tag">Hybrid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/O365Identity/" rel="tag">O365Identity</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/11/">November 2012</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E4%B8%8A%E3%81%A7%E8%87%AA%E5%B7%B1%E7%BD%B2%E5%90%8D%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%E3%81%8C%E5%88%87%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9/">Exchange 2013 のメールボックス サーバー上で自己署名証明書の有効期限が切れた際の注意点
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/">Azure AD と Exchange Online 間の同期に関するエラーの事例集
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%A8%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E6%9C%AC/">Azure AD と Exchange Online の同期とトラブルシューティングの基本
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%82%92%E4%B9%97%E3%81%A3%E5%8F%96%E3%82%89%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E5%AF%BE%E5%BF%9C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">アカウントを乗っ取られた際の対応について
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Export-Office365LicenseStatus%20%E3%81%AE%E3%81%94%E7%B4%B9%E4%BB%8B/">Export-Office365LicenseStatus のご紹介
+</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 jpmessaging<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

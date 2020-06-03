@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Autodiscover を振り返る エピソード 1
+ | Japan Exchange &amp; Outlook Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは、Exchange サポート チームの竹本です。 Exchange 2013 SP1 が先日リリースされた中、今回は少し今更ネタとなりますが、Exchange 2013 でも重要な Autodiscover の動作についてのご紹介です。Autodiscover の動作なんてもう完璧！ という方も、是非是非ご参照ください。 Autodiscover 自体は Exchange 2007 以降">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Autodiscover を振り返る エピソード 1
+">
+<meta property="og:url" content="https://jpmessaging.github.io/blog/Autodiscover%20%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/index.html">
+<meta property="og:site_name" content="Japan Exchange &amp; Outlook Support Blog">
+<meta property="og:description" content="こんにちは、Exchange サポート チームの竹本です。 Exchange 2013 SP1 が先日リリースされた中、今回は少し今更ネタとなりますが、Exchange 2013 でも重要な Autodiscover の動作についてのご紹介です。Autodiscover の動作なんてもう完璧！ という方も、是非是非ご参照ください。 Autodiscover 自体は Exchange 2007 以降">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Autodiscover%20%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/autodiscover.jpg">
+<meta property="article:published_time" content="2014-03-02T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-03T03:05:04.041Z">
+<meta property="article:author" content="jpmessaging">
+<meta property="article:tag" content="Exchange">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmessaging.github.io/blog/Autodiscover%20%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/autodiscover.jpg">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Japan Exchange &amp; Outlook Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Japan Exchange &amp; Outlook Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">日本マイクロソフト Exchange &amp; Outlook サポート チームのブログです</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmessaging.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Autodiscover を振り返る エピソード 1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/Autodiscover%20%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/" class="article-date">
+  <time datetime="2014-03-02T15:00:00.000Z" itemprop="datePublished">2014-03-03</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Autodiscover を振り返る エピソード 1
+
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="/blog/Autodiscover%20%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/" class="article-date-single">    
+    
+    <time datetime="2014-03-02T15:00:00.000Z" itemprop="dateUpdated">2014-03-03</time>
+    
+</a>              
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは、Exchange サポート チームの竹本です。</p>
+<p>Exchange 2013 SP1 が先日リリースされた中、今回は少し今更ネタとなりますが、Exchange 2013 でも重要な Autodiscover の動作についてのご紹介です。<br>Autodiscover の動作なんてもう完璧！ という方も、是非是非ご参照ください。</p>
+<p>Autodiscover 自体は Exchange 2007 以降、Outlook 2007 以降で利用可能な機能となり、Outlook クライアントはこの機能を利用してプロファイルの自動構成を行ったり、空き時間情報を取得するために必要な URL の情報を Exchange サーバーから取得したりしています。</p>
+<p>　Title : 自動検出サービスについて<br>　URL : <a href="http://technet.microsoft.com/ja-jp/library/bb124251(v=exchg.141).aspx" target="_blank" rel="noopener">http://technet.microsoft.com/ja-jp/library/bb124251(v=exchg.141).aspx</a></p>
+<p>例えば Outlook 2010 クライアントが Autodiscover 接続を行う際、具体的には以下の順序で接続が試みられます。</p>
+<p>　(1) AD に登録された SCP (ServiceConnectionPoint) に設定された URL  (通常、CAS サーバー名や CAS アレイ名等が入ります)<br>　(2) https://&lt;ユーザーの SMTP ドメイン&gt;/autodiscover/autodiscover.xml<br>　(3) https&#58;//autodiscover.&lt;ユーザーの SMTP ドメイン&gt;/autodiscover/autodiscover.xml<br>　(4) &lt;SMTP ドメイン&gt; のローカルの XML ファイル<br>　(5) http&#58;//autodiscover.&lt;ユーザーの SMTP ドメイン&gt;/autodiscover/autodiscover.xml へのリダイレクト<br>　(6) _Autodiscover._tcp.&lt;ユーザーの SMTP ドメイン&gt; (SRV レコード)</p>
+<p>ではここで、いくつかのワードや詳細動作について取り上げてみましょう。</p>
+<p>- SCP って何？<br>Service Connection Point の略、つまりは “サービスへの接続場所” を示すものです。これは Exchange 2007 以降の CAS サーバーの数だけ存在します。<br>では実データはどこにあるのかというと Active Directory (AD) の構成パーティションに存在しており、これは ADSI Editor を使用して以下の場所から確認することが可能です。</p>
+<p>[Configuration] - [CN=Configuration,DC=example,DC=local] - [CN=Services] - [CN=Microsoft Exchange] - [CN=&lt;組織名&gt;] - [CN=Administrative Groups] - [CN=Exchange Administrative Group (FYDIBOHF23SPDLT)] - [CN=Servers] - [CN=&lt;CAS サーバー名&gt;] - [CN=Protocols] - [CN=Autodiscover] - [CN=&lt;CAS サーバー名&gt;]</p>
+<p>例えば以下のような感じです。</p>
+<p><img src="autodiscover.jpg" alt=""></p>
+<p>Outlook クライアントは AD からこの SCP の一覧を読み込み、実際にアクセス先となる SCP の一覧を決定します。</p>
+<p>- どの SCP にアクセスするの？<br>ここで重要となってくるのは、クライアントがどの AD サイトに所属しているのか、という点です。<br>Outlook は取得した SCP の一覧から、まず SCP の Keyword 属性の値を確認します。この Keyword 属性には通常サイト名が設定されているため、クライアントは自身が所属する AD サイトの名前が登録された Keyword 属性があるか否かを、まず確認します。自身のサイト名を Keyword 属性に含む SCP が存在した場合、Outlook はその SCP オブジェクトの ServiceBindingInformation 属性に登録された URL に対し、Autodiscover のリクエストを送信します。</p>
+<p>一方、いずれの SCP オブジェクトのKeyword 属性にもクライアントの AD サイト名が登録されていない場合、Outlook は LDAP クエリにより取得し生成されたリストの一番上から順にアクセスを試み、リスト内のいずれかの SCP に接続します。なお LDAP クエリ実行時には特にソートの指定はされないため、たいていの場合は古い順に SCP が返されますが、厳密にはランダムな順序となります。</p>
+<p>つまり、Autodiscover のアクセス先は AD サイトの構成次第でカスタマイズが可能、という事になります。<br>また上述したそれぞれの属性は Set-ClientAccessServer コマンドにて設定が可能となっており、Keyword 属性は AutodiscoverSiteScope の値、ServiceBindingInformation 属性は AutodiscoverServiceInternalUri の値にそれぞれ該当します。</p>
+<p>AutodiscoverSiteScope の設定を使用してアクセス先となる SCP をコントロールする手順は以下にも記載がありますので、是非ご参照ください。</p>
+<p>　Title : サイトの類似性を使用するための自動検出サービスを構成する<br>　URL : <a href="http://technet.microsoft.com/ja-jp/library/aa998575(v=exchg.141).aspx" target="_blank" rel="noopener">http://technet.microsoft.com/ja-jp/library/aa998575(v=exchg.141).aspx</a></p>
+<p>* ちなみに Outlook がどの SCP に接続しているのかといった点については、Outlook アイコンを Ctrl キーを押しながらクリックすると表示される “電子メールの自動構成のテスト” から確認することが可能です。<br>　<br>- ワークグループ端末の場合は？<br>ワークグループ端末の場合、AD から SCP の一覧を取得することはできません。<br>つまり、上述の (2) からの接続を試みる動作となります。そのため基本的には Autodiscover.&lt;SMTP ドメイン&gt; という A レコードなり Hosts ファイルの記載なりが必要、という事になります。</p>
+<p>- リソース フォレスト / アカウント フォレスト構成の場合は？<br>この場合、多くはアカウント フォレストにクライアント端末とユーザー アカウントが存在し、リソース フォレストに Exchange 2010 が存在する状態で、”リンクされたメールボックス” の機能を用い、ユーザーはメールボックスにアクセスしています。<br>そのためクライアント端末が Autodiscover の接続を正しく行えるためには、アカウント フォレストに SCP が作成されているか、SCP の取得が失敗することを前提に (2) 以降の DNS レコードが用意されているか、どちらかが必要となります。</p>
+<p>前者、SCP の作成を実現するためのコマンドが Export-AutoDiscoverConfig というコマンドです。リソース フォレスト内の Exchange 管理シェルにてこのコマンドを実行することで、アカウント フォレストに、この Exchange に接続するための SCP を生成することができます。</p>
+<p>　　Export-AutoDiscoverConfig -TargetForestDomainController &lt;アカウント フォレストの DC 名&gt; -TargetForestCredential:(get-credential)</p>
+<p>Export-AutodiscoverConfig の詳細は、以下をご参照ください。</p>
+<p>　Title : Export-AutoDiscoverConfig<br>　URL : <a href="http://technet.microsoft.com/ja-jp/library/aa998832(v=exchg.141).aspx" target="_blank" rel="noopener">http://technet.microsoft.com/ja-jp/library/aa998832(v=exchg.141).aspx</a></p>
+<p>上記にて作成されたアカウント フォレストの SCP では、その接続先となる ServiceBindingInformation 属性の値には、リソース フォレストに接続するための LDAP URL (例 : LDAP://example.com) が設定されます。<br>そしてクライアント端末はまず、この LDAP URLを使用してリソース フォレストの DC に接続します。続けて LDAP 要求を行い、実際に Exchange サーバーが所属するリソース フォレストで設定された SCP の値 (ServiceBindingInformation 属性) を、改めて取得する動作となります。</p>
+<p>この時、Exchange サーバーが所属するフォレストにおいて複数の SCP が存在した場合、アカウント フォレストのクライアントはどの SCP に対して接続を試みることになるでしょうか？</p>
+<p>結論から言いますと、これも Keyword 属性 (AutodiscoverSiteScope) の設定に依存します。<br>つまり、リソース フォレストの CAS01 という サーバーで、AutodiscoverSiteScope に “AccountForest01” を設定していた場合、アカウント フォレスト内の “AccountForest01” サイトに存在するクライアント端末は、必ずリソース フォレストの CAS01 というサーバーの AutodiscoverServiceInternalUri に対して、接続を試みることとなります。</p>
+<p>- Autodiscover の結果がなかなか反映されない<br>Outlook Anywhere や各種仮想ディレクトリの設定等を変更したにもかかわらず、Autodiscover で自動取得される設定内容がなかなか更新されない (古い情報のまま) という話をお聞きすることがあります。<br>そんな時は一度、対象のサーバー上で MSExchangeAutodiscoverAppPool のリサイクルをお試しください。Exchange 2010 であれば CAS サーバー上でのみ、Exchange 2013 の場合は CAS サーバーとメールボックス サーバー双方で実施します。<br>* アプリケーション プールのリサイクル中、一時的に Autodiscoverアクセスに支障が生じることがありますので、基本的には業務時間外に実施いただくことをご検討ください。</p>
+<p>今回は以上となりますが、Exchange サーバーを構築、運用いただいている皆様において、少しでも参考になりましたら幸いです。<br>今後も当ブログおよびサポート チームをよろしくお願いいたします。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmessaging.github.io/blog/Autodiscover%20%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/" data-id="ckays4u7f00037wstbw5i8i4u" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/Autodiscover%20%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%202/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Autodiscover を振り返る エピソード 2
+
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/%E5%8F%82%E7%85%A7%20DC-GC%20%E3%81%AE%E5%9B%BA%E5%AE%9A%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">参照 DC-GC の固定について
+</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/EXO/" rel="tag">EXO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hybrid/" rel="tag">Hybrid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/O365Identity/" rel="tag">O365Identity</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/11/">November 2012</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E4%B8%8A%E3%81%A7%E8%87%AA%E5%B7%B1%E7%BD%B2%E5%90%8D%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%E3%81%8C%E5%88%87%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9/">Exchange 2013 のメールボックス サーバー上で自己署名証明書の有効期限が切れた際の注意点
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/">Azure AD と Exchange Online 間の同期に関するエラーの事例集
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%A8%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E6%9C%AC/">Azure AD と Exchange Online の同期とトラブルシューティングの基本
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%82%92%E4%B9%97%E3%81%A3%E5%8F%96%E3%82%89%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E5%AF%BE%E5%BF%9C%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">アカウントを乗っ取られた際の対応について
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Export-Office365LicenseStatus%20%E3%81%AE%E3%81%94%E7%B4%B9%E4%BB%8B/">Export-Office365LicenseStatus のご紹介
+</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 jpmessaging<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
