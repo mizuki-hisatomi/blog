@@ -5,11 +5,11 @@
 # Site
 title: Japan Exchange & Outlook Support Blog
 subtitle: '日本マイクロソフト Exchange & Outlook サポート チームのブログです'
-description: 'this is the description'
+description: '日本マイクロソフト Exchange & Outlook サポート チームのブログです'
 keywords:
 author: jpmessaging
 language: en
-timezone: ''
+timezone: 'asia/Tokyo'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
