@@ -6,7 +6,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="https://jpmessaging.github.io/blog/"/>
-  <updated>2020-06-16T22:49:04.894Z</updated>
+  <updated>2020-06-18T01:36:26.896Z</updated>
   <id>https://jpmessaging.github.io/blog/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Exchange Admin Center の言語設定について
+</title>
+    <link href="https://jpmessaging.github.io/blog/Exchange%20Admin%20Center%20%E3%81%AE%E8%A8%80%E8%AA%9E%E8%A8%AD%E5%AE%9A%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/"/>
+    <id>https://jpmessaging.github.io/blog/Exchange%20Admin%20Center%20%E3%81%AE%E8%A8%80%E8%AA%9E%E8%A8%AD%E5%AE%9A%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</id>
+    <published>2019-02-28T15:00:00.000Z</published>
+    <updated>2020-06-18T01:36:26.896Z</updated>
+    
+    <content type="html"><![CDATA[<p>Exchange Admin Center の言語については URL にクエリ文字列 “mkt=&lt;言語コード&gt;” を指定することで自由に変更できます。<br>なお、Exchange Online だけでなくオンプレミスの Exchange サーバーでもご利用いただけます。</p><p>例:</p><table><thead><tr><th>言語</th><th>URL 例</th></tr></thead><tbody><tr><td>日本語</td><td><a href="https://outlook.office.com/ecp/?mkt=ja-jp" target="_blank" rel="noopener">https://outlook.office.com/ecp/?mkt=ja-jp</a></td></tr><tr><td>US 英語</td><td><a href="https://outlook.office.com/ecp/?mkt=en-us" target="_blank" rel="noopener">https://outlook.office.com/ecp/?mkt=en-us</a></td></tr><tr><td>フランス語</td><td><a href="https://outlook.office.com/ecp/?mkt=fr-fr" target="_blank" rel="noopener">https://outlook.office.com/ecp/?mkt=fr-fr</a></td></tr></tbody></table>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Exchange Admin Center の言語については URL にクエリ文字列 “mkt=&amp;lt;言語コード&amp;gt;” を指定することで自由に変更できます。&lt;br&gt;なお、Exchange Online だけでなくオンプレミスの Exchange サーバーでもご利用いた
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Exchange" scheme="https://jpmessaging.github.io/blog/tags/Exchange/"/>
+    
+  </entry>
   
   <entry>
     <title>Exchange 2013 のメールボックス サーバー上で自己署名証明書の有効期限が切れた際の注意点
@@ -507,31 +532,6 @@
     
     
       <category term="Exchange" scheme="https://jpmessaging.github.io/blog/tags/Exchange/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Exchange Online と Outlook の認証キャッシュについて
-</title>
-    <link href="https://jpmessaging.github.io/blog/Exchange%20Online%20%E3%81%A8%20Outlook%20%E3%81%AE%E8%AA%8D%E8%A8%BC%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/"/>
-    <id>https://jpmessaging.github.io/blog/Exchange%20Online%20%E3%81%A8%20Outlook%20%E3%81%AE%E8%AA%8D%E8%A8%BC%E3%82%AD%E3%83%A3%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/</id>
-    <published>2016-07-13T15:00:00.000Z</published>
-    <updated>2020-06-12T02:12:42.637Z</updated>
-    
-    <content type="html"><![CDATA[<p>ADFS (Active Directory Federation Services) やサード パーティーの ID プロバイダーを使用するシングル サインインの構成においては、Outlook クライアントから Exchange Online に接続をする際に、認証処理のためにこれらの認証サーバーに対して問い合わせが発生します。(シングル サインオンを利用しない場合は Office 365 の Azure AD にて認証処理が完結しています。)<br>しかしながら、クラウド サービス側やクライアント側で認証処理に成功したキャッシュが残っている場合は、認証サーバーへの問い合わせを省き、過去の認証キャッシュを利用して接続を完了させる動作がございます。</p><p>今回はこの認証キャッシュの動作について説明します。「従来の認証の場合」 そして 「先進認証 (Modern Authentication) の場合」 の 2 つに分けてご紹介します。</p><h2><strong>従来の認証の場合</strong></h2>Exchange Online の動作として、最大 24 時間キャッシュを保存します。サーバー側で保持できる容量を超えた場合に古いキャッシュから削除されることから、Exchange Online のサーバー側の使用状況によって保持時間は異なります。その他 Outlook と Exchange Online の接続において認証キャッシュが使用できる条件は複合的な要素を含むため、すべてのシナリオを標準化してご案内することは困難ですが、実際に認証キャッシュが使用できる期間は24 時間以内で前後します。<p>また、前述の通り Exchange Online 側で保持する認証キャッシュが有効な間は、認証サーバー (ADFS など) の認証なしでログインすることができます。</p><p>以下は認証フローの参考図となります。</p><p><strong>* クライアントからのアクセスを受けてトークンの要求と発行が行われる動作にフォーカスして簡略化した図となります。</strong></p><a href="media/2016/07/flow01_n.png"><p><img src="flow01_n.png" alt=""><br></a></p><h2><strong>先進認証 (Modern Authentication) の場合</strong></h2>下記の公開情報に記載があります 「先進認証 (Modern Authentication)」 を利用される場合は、認証成功時にクライアント側に保存されるトークン情報によって認証サーバーへの問い合わせをせずに、Exchange Online にアクセスすることができます。このトークンの有効期間については公開情報内の 「Azure Active Directory (先進認証が有効である Office 2013 Windows クライアントにより使用される)」 をご確認ください。<p style="padding-left: 2em">Title: Office 365 のセッション タイムアウト<br/>URL: <a href="https://support.office.com/ja-jp/article/37a5c116-5b07-4f70-8333-5b86fd2c3c40" target="_blank" rel="noopener">https://support.office.com/ja-jp/article/37a5c116-5b07-4f70-8333-5b86fd2c3c40</a></p>なお、先進認証においてクライアントが再認証なしでアクセスし続けられる期間の長さはアクセス トークン (リフレッシュ トークンによる再更新を含む) の有効性に依存し、Exchange Online や Office 365 側の認証キャッシュ期間は、このトークンの有効期間に対して影響しません。<p>以下は先進認証の認証フローの参考図となります。</p><p><strong>* 前項の図との比較のために、簡略化した図となります。実際には 「従来の認証」 と同様に 1 の前に Exchange Online へのアクセスが発生しますが、この図はその後のトークン取得の処理にフォーカスして記載しています。</strong><br><a href="media/2016/07/flow02_n.png"></p><p><img src="flow02_n.png" alt=""><br></a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;ADFS (Active Directory Federation Services) やサード パーティーの ID プロバイダーを使用するシングル サインインの構成においては、Outlook クライアントから Exchange Online に接続をする際に、認証処理のた
-      
-    
-    </summary>
-    
-    
-    
-      <category term="EXO" scheme="https://jpmessaging.github.io/blog/tags/EXO/"/>
     
   </entry>
   
