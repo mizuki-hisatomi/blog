@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Active Directory サイトを活用した Exchange 導入
+ | Japan Exchange &amp; Outlook Support Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="(この記事は 2015 年 11 月 18 日に Office Blogs に投稿された記事 Exchange Active Directory Deployment Site の翻訳です。最新情報については、翻訳元の記事をご参照ください。) 新しい Exchange サーバーを導入するときは、考慮すべきことがいくつかあります。そのうちの 1 つが、現在サポートされている新しいバージョンの Exc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Active Directory サイトを活用した Exchange 導入
+">
+<meta property="og:url" content="https://jpmessaging.github.io/blog/Active%20Directory%20%E3%82%B5%E3%82%A4%E3%83%88%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%20Exchange%20%E5%B0%8E%E5%85%A5/index.html">
+<meta property="og:site_name" content="Japan Exchange &amp; Outlook Support Blog">
+<meta property="og:description" content="(この記事は 2015 年 11 月 18 日に Office Blogs に投稿された記事 Exchange Active Directory Deployment Site の翻訳です。最新情報については、翻訳元の記事をご参照ください。) 新しい Exchange サーバーを導入するときは、考慮すべきことがいくつかあります。そのうちの 1 つが、現在サポートされている新しいバージョンの Exc">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Active%20Directory%20%E3%82%B5%E3%82%A4%E3%83%88%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%20Exchange%20%E5%B0%8E%E5%85%A5/image1.png">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Active%20Directory%20%E3%82%B5%E3%82%A4%E3%83%88%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%20Exchange%20%E5%B0%8E%E5%85%A5/image2.png">
+<meta property="og:image" content="https://jpmessaging.github.io/blog/Active%20Directory%20%E3%82%B5%E3%82%A4%E3%83%88%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%20Exchange%20%E5%B0%8E%E5%85%A5/image3.png">
+<meta property="article:published_time" content="2015-12-08T15:00:00.000Z">
+<meta property="article:modified_time" content="2020-07-21T16:59:09.987Z">
+<meta property="article:author" content="jpmessaging">
+<meta property="article:tag" content="Exchange">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpmessaging.github.io/blog/Active%20Directory%20%E3%82%B5%E3%82%A4%E3%83%88%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%20Exchange%20%E5%B0%8E%E5%85%A5/image1.png">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="Japan Exchange &amp; Outlook Support Blog" type="application/atom+xml">
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/blog/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/blog/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/blog/icons/favicon-16x16.png">
+    <link rel="manifest" href="/blog/icons/site.webmanifest">
+    <link rel="mask-icon" href="/blog/icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/blog/icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="/blog/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/blog/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/blog/" id="logo">Japan Exchange &amp; Outlook Support Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/blog/" id="subtitle">日本マイクロソフト Exchange &amp; Outlook サポート チームのブログです</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/blog/">Home</a>
+        
+          <a class="main-nav-link" href="/blog/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/blog/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://jpmessaging.github.io/blog"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Active Directory サイトを活用した Exchange 導入" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/blog/Active%20Directory%20%E3%82%B5%E3%82%A4%E3%83%88%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%20Exchange%20%E5%B0%8E%E5%85%A5/" class="article-date">
+  <time datetime="2015-12-08T15:00:00.000Z" itemprop="datePublished">2015-12-09</time>
+</a>
+    <!--  -->
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Active Directory サイトを活用した Exchange 導入
+
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="/blog/Active%20Directory%20%E3%82%B5%E3%82%A4%E3%83%88%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%20Exchange%20%E5%B0%8E%E5%85%A5/" class="article-date-single">    
+    
+    <time datetime="2015-12-08T15:00:00.000Z" itemprop="dateUpdated">2015-12-09</time>
+    
+</a>              
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>(この記事は 2015 年 11 月 18 日に Office Blogs に投稿された記事 Exchange Active Directory Deployment Site の翻訳です。最新情報については、翻訳元の記事をご参照ください。)</p>
+<p>新しい Exchange サーバーを導入するときは、考慮すべきことがいくつかあります。そのうちの 1 つが、現在サポートされている新しいバージョンの Exchange サーバーを稼動中の運用環境に導入するときに、Active Directory (AD) 展開のサイト設計オプションを活用すると作業がスムーズになるという点です。</p>
+<p>クライアント アクセス サーバー ロールを持つ新しい Exchange サーバー、またはすべての Exchange 2016 サーバーを導入するときは必ず、セットアップ プロセスで Active Directory 内に新しいサービス接続ポイント (SCP) (英語) レコードが追加されます。内部ドメインに参加しているクライアントおよびアプリケーションが自動検出 (英語) サービスを見つけるためにSCP レコードを使用します。実際の環境の構成内容によっては、新しいサーバーを構成する前に、クライアントがこの新しい SCP レコードを参照し、そのサーバーに自動検出要求を直接送信し始める可能性があります。しかし、既定の自己署名証明書はクライアントから信頼されていないため、この新しいサーバーとやり取りするすべてのクライアントで、エンド ユーザーに証明書のエラーが表示されるようになります。この最良とは言えないエクスペリエンスは簡単に防ぐことができます。</p>
+<p>クライアントがこの新しいサーバーに自動検出要求を直接送信するのを回避するために、皆様は既に、新しい SCP レコードの AutodiscoverServiceInternalUri 値を「空白のまま」にしているか、扱いやすく負荷分散される URL に設定しているかもしれません。この設定によって、クライアントは SCP をまったく使用しないようになるか、使用するとしても、有効な証明書を既に備えているロード バランサーへと向けられます。いずれの方法でも、新しいサーバーを構成するまで、クライアントはそのサーバーに自動検出要求を直接送信しなくなりますが、この時点ではまだ問題は解決されていません。クライアントからサーバーへの自動検出要求の送信は、自動検出に関する問題の 1/2 にすぎません。ほかに、自動検出応答がクライアントに返される前に、それがどのように生成されるかを考慮する必要があります。</p>
+<p>重要なのは、自動検出要求を受信するサーバーが、単に自身の設定を使用して応答を作成するのではないということです。つまり、要求を受信するサーバーは、ユーザーのメールボックスのバージョンや、ユーザーのメールボックスが現時点で属している Active Directory サイト、使用しているクライアントの情報、ユーザーのメールボックス サイトがインターネットに接続されているかどうかを確認します。サーバーは必要な情報をすべて揃えると、次に、自動検出応答の作成に使用する値をどこから取得するかを決定します。値の一部は、ユーザーのメールボックスと同じ AD サイトのランダムなサーバーから選択されます。また、メールボックス サイトがインターネットに接続されていない場合は必要に応じて、その他の値はインターネットに接続されている、最小コスト経路の AD サイトのランダムなサーバーから取得されます。そして要求を受信するサーバーは、取得した値をまとめ、単一の自動検出応答の形式でクライアントに返します。新しい Exchange サーバーがユーザーのメールボックスと同じ AD サイトに存在するか、選択したインターネット接続サイトに存在する場合、新しいサーバーの仮想ディレクトリと Outlook Anywhere 構成でまだ既定の FQDN 値が設定されているため、クライアントで証明書に関するポップアップが表示される可能性があります。たとえば、Outlook が新しいサーバーの既定の設定である <code>https://exch2016-01.corp.contoso.com/oab</code> を使用してオフライン アドレス帳をダウンロードしようとした場合、クライアントでは証明書に関するメッセージが表示されます。</p>
+<p>上記のことから、新しいサーバーによって証明書に関する警告が表示されないようにするには 2 つの対策が求められることがわかります。まず、新しいサーバーがクライアントから要求を直接受信しないようにする必要があります。次に、このサーバーの既定値が、自動検出要求を受信する他のクライアント アクセス サーバー (または Exchange 2016 サーバー) で生成される応答に使用されないようにする必要もあります。</p>
+<h2 id="この状況の回避方法"><a href="#この状況の回避方法" class="headerlink" title="この状況の回避方法"></a>この状況の回避方法</h2><p>AD は、サイトのサブネットが定義されている場合は「最も制限の厳しい」定義を自動的に適用します。たとえば、ある AD サイトに 192.168.0.x/24 のサブネットが定義されており、別の AD サイトにより制限の厳しい 192.168.0.1/32 のサブネットが定義されている場合、その AD サイトでは最も制限の厳しい値が定義されます (注: /32 は単一の IP アドレスを表します。サーバー 1 台の環境にはこれで十分です)。</p>
+<p>この動作を活用するには、以下に示すいくつかの方法があります。</p>
+<p>常に同じ IP を使用してサーバーを展開した後、URL の構成と証明書のインストールが済んだらそのサーバーの IP を変更します。</p>
+<p>構築する各サーバーの AD サイトとサービスにおけるサブネットの定義と、その具体的な IP アドレスを変更します。</p>
+<p>いくつかの IP が利用できる小規模のサブネット (6 つの IP アドレスが利用できる /29 のサブネットなど。例: 192.168.0.128/29、アドレス範囲: 192.168.0.129 ～ 192.168.0.134) を使用して、6 台まで (/29 の場合) の新しい Exchange サーバーをセットアップします。その後、サーバーの構成が完了したら、AD サイトとサービスから /29 のサブネットを削除し、Exchange サーバーを再起動して、AutoDiscoverSiteScope の値を再設定すると、サーバーがクライアントに適切な値で応答するようになります。</p>
+<h2 id="サーバーが属している-AD-サイトの確認"><a href="#サーバーが属している-AD-サイトの確認" class="headerlink" title="サーバーが属している AD サイトの確認"></a>サーバーが属している AD サイトの確認</h2><p>Exchange をインストールする前に、サーバーが属している AD サイトを確認してください。ローカル Exchange サーバーの PowerShell で、次のコマンドを実行します。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nltest &#x2F;dsgetsite</span><br></pre></td></tr></table></figure>
+<p><img src="image1.png" alt=""></p>
+<p>Exchange をインストールした後、IP を変更するか、AD サイトのサブネットの定義を変更し、サーバーを再起動して、AutoDiscoverSiteScope の値を更新できます。サーバーが適切な AD サイトに属していることを再度確認すると共に、次のコマンドレットを実行して、その他の Exchange サーバーからもそのように認識されているかどうかを確認します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-ExchangeServer</span> | FT Name,Site –Autosize</span><br></pre></td></tr></table></figure>
+
+<p><img src="image2.png" alt=""></p>
+<p>サーバーの IP の変更または AD サイトの削除を行った後、最後の手順として、AutoDiscoverSiteScope を更新する必要があります。PowerShell で、次のコマンドレットを実行します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-ClientAccessService</span> &lt;サーバー名&gt; –AutoDiscoverSiteScope &lt;AD サイトの名前&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="image3.png" alt=""></p>
+<p>その後、Get コマンドレットを再度実行して、実際の環境に適した値になっているか確認します。これにより、先ほどのコマンドレットで正しい AD サイトの情報を入力したかどうかが確認できます。</p>
+<h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><p>この手順を実行することで、追加の Exchange サーバーを運用環境に導入している間に、クライアントにわずらわしいポップアップを表示しないようにすることができます。それでもなお、お客様の企業で定める変更プロセスに従うと共に、通知が表示される可能性についてエンド ユーザーに知らせておくことをお勧めしますが、この手順によって Outlook での予想外の中断がなくなるはずです。</p>
+<p>Mike O’Neill</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://jpmessaging.github.io/blog/Active%20Directory%20%E3%82%B5%E3%82%A4%E3%83%88%E3%82%92%E6%B4%BB%E7%94%A8%E3%81%97%E3%81%9F%20Exchange%20%E5%B0%8E%E5%85%A5/" data-id="ckevts4on0003jkst2ioa504g" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/blog/Edge%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%202/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Edge サーバーを振り返る エピソード 2
+
+        
+      </div>
+    </a>
+  
+  
+    <a href="/blog/Edge%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%82%92%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8B%20%E3%82%A8%E3%83%94%E3%82%BD%E3%83%BC%E3%83%89%201/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Edge サーバーを振り返る エピソード 1
+</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/EXO/" rel="tag">EXO</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Exchange/" rel="tag">Exchange</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Hybrid/" rel="tag">Hybrid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/O365Identity/" rel="tag">O365Identity</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/09/">September 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2020/08/">August 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/10/">October 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/05/">May 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2018/04/">April 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/10/">October 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/08/">August 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">June 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/02/">February 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/08/">August 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/04/">April 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/11/">November 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/03/">March 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2013/01/">January 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2012/11/">November 2012</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/blog/Exchange%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%AE%E3%83%97%E3%83%AD%E3%82%AD%E3%82%B7%E8%A8%AD%E5%AE%9A%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Exchange サーバーのプロキシ設定について
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Modern%20HCW%20(Hybrid%20Agent)%20%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E6%96%B9%E6%B3%95%E3%81%AE%E3%81%94%E7%B4%B9%E4%BB%8B/">Modern HCW (Hybrid Agent) のトラブルシューティング方法のご紹介
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Exchange%20Admin%20Center%20%E3%81%AE%E8%A8%80%E8%AA%9E%E8%A8%AD%E5%AE%9A%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/">Exchange Admin Center の言語設定について
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Exchange%202013%20%E3%81%AE%E3%83%A1%E3%83%BC%E3%83%AB%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%20%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E4%B8%8A%E3%81%A7%E8%87%AA%E5%B7%B1%E7%BD%B2%E5%90%8D%E8%A8%BC%E6%98%8E%E6%9B%B8%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%E3%81%8C%E5%88%87%E3%82%8C%E3%81%9F%E9%9A%9B%E3%81%AE%E6%B3%A8%E6%84%8F%E7%82%B9/">Exchange 2013 のメールボックス サーバー上で自己署名証明書の有効期限が切れた際の注意点
+</a>
+          </li>
+        
+          <li>
+            <a href="/blog/Azure%20AD%20%E3%81%A8%20Exchange%20Online%20%E9%96%93%E3%81%AE%E5%90%8C%E6%9C%9F%E3%81%AB%E9%96%A2%E3%81%99%E3%82%8B%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E4%BA%8B%E4%BE%8B%E9%9B%86/">Azure AD と Exchange Online 間の同期に関するエラーの事例集
+</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 jpmessaging<br>      
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/blog/" class="mobile-nav-link">Home</a>
+  
+    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="/blog/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
